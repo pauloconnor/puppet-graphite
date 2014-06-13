@@ -1,0 +1,6 @@
+LINE_RECEIVER_INTERFACE = <%= scope.lookupvar('graphite::gr_aggregator_line_interface') %>
+LINE_RECEIVER_PORT = <%= scope.lookupvar('graphite::gr_aggregator_line_port') %>
+PICKLE_RECEIVER_INTERFACE = <%= scope.lookupvar('graphite::gr_aggregator_pickle_interface') %>
+PICKLE_RECEIVER_PORT = <%= scope.lookupvar('graphite::gr_aggregator_pickle_port') %>
+FORWARD_ALL = <%= scope.lookupvar('graphite::gr_aggregator_forward_all') %>
+DESTINATIONS = <%= scope.lookupvar('graphite::gr_aggregator_destinations').join(', ') %>

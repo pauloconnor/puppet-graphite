@@ -1,0 +1,14 @@
+<% gr_cache_count.each do | cc | %>
+[cache:<%= cc %>]
+LINE_RECEIVER_INTERFACE   = <%= scope.lookupvar('graphite::gr_line_receiver_interface') %>
+LINE_RECEIVER_PORT        = <%= scope.lookupvar('graphite::gr_line_receiver_port')  + (cc.to_i * 10) %>
+ENABLE_UDP_LISTENER       = <%= scope.lookupvar('graphite::gr_enable_udp_listener') %>
+UDP_RECEIVER_INTERFACE    = <%= scope.lookupvar('graphite::gr_udp_receiver_interface') %>
+UDP_RECEIVER_PORT         = <%= scope.lookupvar('graphite::gr_udp_receiver_port')  + (cc.to_i * 10) %>
+PICKLE_RECEIVER_INTERFACE = <%= scope.lookupvar('graphite::gr_pickle_receiver_interface') %>
+PICKLE_RECEIVER_PORT      = <%= scope.lookupvar('graphite::gr_pickle_receiver_port')  + (cc.to_i * 10) %>
+USE_INSECURE_UNPICKLER    = <%= scope.lookupvar('graphite::gr_use_insecure_unpickler') %>
+CACHE_QUERY_INTERFACE     = <%= scope.lookupvar('graphite::gr_cache_query_interface') %>
+CACHE_QUERY_PORT          = <%= scope.lookupvar('graphite::gr_cache_query_port')  + (cc.to_i * 10) %>
+
+<% end %>
