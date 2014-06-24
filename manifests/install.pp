@@ -16,9 +16,16 @@ class graphite::install(
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  Package {
-    provider => 'pip',
+
+  package { 'python-pip':
+    ensure => present,
+    before => Package[$::graphite::params::graphitepkgs]
   }
+  #->
+  #Package {
+  #  provider => 'pip',
+  #  require  => Package['python-pip'],
+  #}
 
   # for full functionality we need these packages:
   # madatory: python-cairo, python-django, python-twisted,
@@ -43,15 +50,18 @@ class graphite::install(
   }->
   package{'django-tagging':
     ensure   => $django_tagging_ver,
+    provider => 'pip',
   }->
-  package{'twisted':
+  package{'Twisted':
     ensure   => $twisted_ver,
+    provider => 'pip',
   }->
-  package{'txamqp':
+  package{'txAMPQ':
     ensure   => $txamqp_ver,
+    provider => 'pip',
   }
 
-  if $::graphite::use_packages == true {
+  if $graphite::use_packages == true {
     include graphite::install::package
   } else {
     include graphite::install::source

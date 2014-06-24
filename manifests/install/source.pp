@@ -8,9 +8,10 @@
 # 
 class graphite::install::source inherits graphite::params { 
 
-  file { [$::graphite::params::whisper_dl_loc,
-          $::graphite::params::carbon_dl_loc,
-          $::graphite::params::webapp_dl_url
+  file { [$graphite::install_dir,
+          #$graphite::params::whisper_dl_loc,
+          #$graphite::params::carbon_dl_loc,
+          #$graphite::params::webapp_dl_loc
         ]:
         ensure  => directory,
         owner   => 'root',
@@ -23,32 +24,32 @@ class graphite::install::source inherits graphite::params {
     destination => $::graphite::params::whisper_dl_loc,
     timeout     => 0,
     verbose     => false,
-    require     => File[$::graphite::params::whisper_dl_loc],
+    require     => File[$::graphite::install_dir],
   }->
   exec { 'unpack_whisper':
-    cwd         => $::graphite::params::whisper_dl_loc,
-    command     => "/bin/tar -xzvf ${::graphite::params::whisper_dl_loc}/${::graphite::params::whisperVersion}.tar.gz",
+    cwd         => $graphite::build_dir,
+    command     => "/bin/tar -xzvf ${::graphite::params::whisper_dl_loc}",
   }->
   # carbon goes to the /usr/bin by default. No overrides possible
   exec { 'install_whisper':
-    cwd         => "${::graphite::params::whisper_dl_loc}/whisper-${::graphite::params::whisperVersion}",
-    command     => "install /usr/local/bin/python setup.py",
+    cwd         => "${graphite::build_dir}/whisper-${::graphite::params::whisperVersion}",
+    command     => "/usr/bin/python setup.py install",
   }
 
-  wget::fetch { 'wget_webapp':
-    source      => $::graphite::params::webapp_dl_url,
-    destination => $::graphite::params::webapp_dl_loc,
+  wget::fetch { 'wget_graphite':
+    source      => $graphite::params::webapp_dl_url,
+    destination => $graphite::params::webapp_dl_loc,
     timeout     => 0,
     verbose     => false,
-    require     => File[$::graphite::params::webapp_dl_loc],
+    require     => File[$graphite::install_dir],
   }->
-  exec { 'unpack_webapp':
-    cwd         => $::graphite::params::webapp_dl_loc,
-    command     => "/bin/tar -xzvf ${::graphite::params::webapp_dl_loc}/${::graphite::params::webappVersion}.tar.gz",
+  exec { 'unpack_graphite':
+    cwd         => $graphite::build_dir,
+    command     => "/bin/tar -xzvf ${::graphite::params::webapp_dl_loc}",
   }->
-  exec { 'install_webapp':
-    cwd         => "${::graphite::params::webapp_dl_loc}/graphite-web-${::graphite::params::webappVersion}",
-    command     => "install /usr/local/bin/python setup.py --prefix=${::graphite::install_dir} --install-lib=${::graphite::params::install_dir}/webapp",
+  exec { 'install_graphite':
+    cwd         => "${graphite::build_dir}/graphite-web-${::graphite::params::graphiteVersion}",
+    command     => "/usr/bin/python setup.py install --prefix=${graphite::install_dir} --install-lib=${graphite::install_dir}/webapp",
   }
 
   wget::fetch { 'wget_carbon':
@@ -56,14 +57,14 @@ class graphite::install::source inherits graphite::params {
     destination => $::graphite::params::carbon_dl_loc,
     timeout     => 0,
     verbose     => false,
-    require     => File[$::graphite::params::carbon_dl_loc],
+    require     => File[$::graphite::install_dir],
   }->
   exec { 'unpack_carbon':
-    cwd         => $::graphite::params::carbon_dl_loc,
-    command     => "/bin/tar -xzvf ${::graphite::params::carbon_dl_loc}/${::graphite::params::carbonVersion}.tar.gz",
+    cwd         => $graphite::build_dir,
+    command     => "/bin/tar -xzvf ${::graphite::params::carbon_dl_loc}",
   }->
   exec { 'install_carbon':
-    cwd         => "${::graphite::params::carbon_dl_loc}/carbon-${::graphite::params::carbonVersion}",
-    command     => "install /usr/local/bin/python setup.py --prefix=${::graphite::install_dir} --install-lib=${::graphite::params::install_dir}/lib",
+    cwd         => "${graphite::build_dir}/carbon-${::graphite::params::carbonVersion}",
+    command     => "/usr/bin/python setup.py install --prefix=${::graphite::install_dir} --install-lib=${::graphite::install_dir}/lib",
   }
 }

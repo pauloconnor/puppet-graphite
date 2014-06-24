@@ -272,22 +272,42 @@
 # }
 #
 class graphite (
-  $gr_user                      = '',
-  $gr_max_cache_size            = inf,
-  $gr_max_updates_per_second    = 500,
-  $gr_max_creates_per_minute    = 50,
-  $gr_carbon_metric_interval    = 60,
-  $gr_timezone                  = 'UTC',
-  $enable_carbon_relay          = false,
-  $enable_carbon_cache          = false,
-  $enable_webapp                = false,
-  $web_server                   = 'apache',
-  $install_dir                  = '/opt/graphite',
-  $use_packages                 = true,
-) {
+  $user                      = $graphite::params::user,
+  $group                     = $graphite::params::group,
+  $carbon_metric_interval    = $graphite::params::carbon_metric_interval,
+  $timezone                  = $graphite::params::timezone,
+  $enable_carbon_cache       = $graphite::params::enable_carbon_cache,
+  $enable_carbon_relay       = $graphite::params::enable_carbon_relay,
+  $enable_carbon_aggregator  = $graphite::params::enable_carbon_aggregator,
+  $enable_webapp             = $graphite::params::enable_webapp,
+  $web_server                = $graphite::params::web_server,
+  $use_packages              = $graphite::params::use_packages,
+  $memcache_hosts            = $graphite::params::memcache_hosts,
+  $storage_schemas           = $graphite::params::storage_schemas,
+  $storage_aggregation_rules = $graphite::params::storage_aggregation_rules,
+  $aggregator_rules          = $graphite::params::aggregator_rules,
+  $relay_rules               = $graphite::params::relay_rules,
+  $relays                    = $graphite::params::relays,
+  $caches                    = $graphite::params::caches,
+  $install_dir               = '/opt/graphite',
+  $storage_dir               = '/opt/graphite/storage',
+  $additional_servers        = '',
+) inherits graphite::params {
   # Validation of input variables.
   # TODO - validate all the things
-  validate_string($gr_use_remote_user_auth)
+  validate_string($user)
+  validate_string($carbon_metric_interval)
+  validate_string($timezone)
+  validate_bool($enable_carbon_cache)
+  validate_bool($enable_carbon_relay)
+  validate_bool($enable_webapp)
+  validate_re($web_server, '^(apache|nginx|wsgionly|none)$') #,              fail('The only supported web servers are \'apache\', \'nginx\',  \'wsgionly\' and \'none\''))
+  validate_string($install_dir)
+  validate_bool($use_packages)
+
+  if $storage_dir == '' {
+    #$storage_dir = "${install_dir}/storage"
+  }
 
   # The anchor resources allow the end user to establish relationships
   # to the "main" class and preserve the relationship to the

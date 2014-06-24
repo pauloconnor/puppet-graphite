@@ -7,7 +7,7 @@
 # install. This key is used for salting of hashes used in auth tokens,
 # CRSF middleware, cookie storage, etc. This should be set identically among
 # instances if used behind a load balancer.
-SECRET_KEY = '<%= scope.lookupvar('graphite::secret_key') %>'
+SECRET_KEY = '<%= scope.lookupvar('graphite::params::secret_key') %>'
 
 # In Django 1.5+ set this to the list of hosts your graphite instances is
 # accessible as. See:
@@ -17,7 +17,7 @@ SECRET_KEY = '<%= scope.lookupvar('graphite::secret_key') %>'
 # Set your local timezone (Django's default is America/Chicago)
 # If your graphs appear to be offset by a couple hours then this probably
 # needs to be explicitly set to your local timezone.
-TIME_ZONE = '<%= scope.lookupvar('graphite::gr_timezone') %>'
+TIME_ZONE = '<%= scope.lookupvar('graphite::params::timezone') %>'
 
 # Override this to provide documentation specific to your Graphite deployment
 #DOCUMENTATION_URL = "http://graphite.readthedocs.org/"
@@ -44,8 +44,8 @@ TIME_ZONE = '<%= scope.lookupvar('graphite::gr_timezone') %>'
 # unneeded cache misses. Set to [] to disable caching of images and fetched data
 #MEMCACHE_HOSTS = ['10.10.10.10:11211', '10.10.10.11:11211', '10.10.10.12:11211']
 
-<% unless scope.lookupvar('graphite::gr_memcache_hosts') == :undef -%>
-MEMCACHE_HOSTS = [<% scope.lookupvar('graphite::gr_memcache_hosts').each do |memcached| %>'<%= memcached -%>',<% end -%>]
+<% unless scope.lookupvar('graphite::params::memcache_hosts') == :undef -%>
+MEMCACHE_HOSTS = [<% scope.lookupvar('graphite::params::memcache_hosts').each do |memcached| %>'<%= memcached -%>',<% end -%>]
 <% end -%>
 
 #DEFAULT_CACHE_DURATION = 60 # Cache images and data for 1 minute
@@ -158,22 +158,22 @@ LDAP_USER_QUERY = "<%= scope.lookupvar('graphite::gr_ldap_user_query') %>"
 # The default is 'django.db.backends.sqlite3' with file 'graphite.db'
 # located in STORAGE_DIR
 #
-<% if scope.lookupvar('graphite::gr_django_1_4_or_less') %>
-DATABASE_ENGINE = '<%= scope.lookupvar('graphite::gr_django_db_engine') %>'
-DATABASE_NAME = '<%= scope.lookupvar('graphite::gr_django_db_name') %>'
-DATABASE_USER = '<%= scope.lookupvar('graphite::gr_django_db_user') %>'
-DATABASE_PASSWORD = '<%= scope.lookupvar('graphite::gr_django_db_password') %>'
-DATABASE_HOST = '<%= scope.lookupvar('graphite::gr_django_db_host') %>'
-DATABASE_PORT = '<%= scope.lookupvar('graphite::gr_django_db_port') %>'
+<% if scope.lookupvar('graphite::params::django_1_4_or_less') %>
+DATABASE_ENGINE = '<%= scope.lookupvar('graphite::params::django_db_engine') %>'
+DATABASE_NAME = '<%= scope.lookupvar('graphite::params::django_db_name') %>'
+DATABASE_USER = '<%= scope.lookupvar('graphite::params::django_db_user') %>'
+DATABASE_PASSWORD = '<%= scope.lookupvar('graphite::params::django_db_password') %>'
+DATABASE_HOST = '<%= scope.lookupvar('graphite::params::django_db_host') %>'
+DATABASE_PORT = '<%= scope.lookupvar('graphite::params::django_db_port') %>'
 <% else %>
 DATABASES = {
    'default': {
-        'ENGINE': '<%= scope.lookupvar('graphite::gr_django_db_engine') %>',
-        'NAME': '<%= scope.lookupvar('graphite::gr_django_db_name') %>',
-        'USER': '<%= scope.lookupvar('graphite::gr_django_db_user') %>',
-        'PASSWORD': '<%= scope.lookupvar('graphite::gr_django_db_password') %>',
-        'HOST': '<%= scope.lookupvar('graphite::gr_django_db_host') %>',
-        'PORT': '<%= scope.lookupvar('graphite::gr_django_db_port') %>',
+        'ENGINE': '<%= scope.lookupvar('graphite::params::django_db_engine') %>',
+        'NAME': '<%= scope.lookupvar('graphite::storage_dir') %>/<%= scope.lookupvar('graphite::params::django_db_name') %>',
+        'USER': '<%= scope.lookupvar('graphite::params::django_db_user') %>',
+        'PASSWORD': '<%= scope.lookupvar('graphite::params::django_db_password') %>',
+        'HOST': '<%= scope.lookupvar('graphite::params::django_db_host') %>',
+        'PORT': '<%= scope.lookupvar('graphite::params::django_db_port') %>',
     }
 }
 <% end %>

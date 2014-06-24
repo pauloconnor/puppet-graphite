@@ -12,15 +12,29 @@
 # Description: Enables Graphites carbon-cache data collecting engine
 ### END INIT INFO
 
+<% 
+	start_collection = ""
+	stop_collection = ""
+	status_collection = ""
+	scope.lookupvar('graphite::caches').each do | name, cache | 
+	cc = 0
+	while cc < cache['count'].to_i
+		start_collection = "#{start_collection}\n\t\tpython /opt/graphite/bin/carbon-cache.py --instance=#{cc} start"
+		stop_collection = "#{stop_collection}\n\t\tpython /opt/graphite/bin/carbon-cache.py --instance=#{cc} stop"
+		status_collection = "#{status_collection}\n\t\tpython /opt/graphite/bin/carbon-cache.py --instance=#{cc} status"
+		cc += 1
+	end
+end %>
+
 case "$1" in
 	start)
-		python /opt/graphite/bin/carbon-cache.py start
+		<%= start_collection %>
 		;;
 	stop)
-		python /opt/graphite/bin/carbon-cache.py stop
+		<%= stop_collection %>
 		;;
 	status)
-		python /opt/graphite/bin/carbon-cache.py status
+		<%= status_collection %>
 		;;
 	restart)
 		$0 stop ; sleep 3 ; $0 start

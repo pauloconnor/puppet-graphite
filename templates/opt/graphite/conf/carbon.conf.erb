@@ -1,58 +1,164 @@
 [cache]
-STORAGE_DIR    = <%= scope.lookupvar('graphite::gr_install_dir') %>
-LOCAL_DATA_DIR = STORAGE_DIR/whisper/
-WHITELISTS_DIR = STORAGE_DIR/lists/
-CONF_DIR       = STORAGE_DIR/conf/
-LOG_DIR        = STORAGE_DIR/log/
-PID_DIR        = STORAGE_DIR/
-LOCAL_DATA_DIR = STORAGE_DIR/whisper/
-
-ENABLE_LOGROTATION = True
-
-USER = <%= scope.lookupvar('graphite::gr_user') %>
-
-MAX_CACHE_SIZE = <%= scope.lookupvar('graphite::gr_max_cache_size') %>
-MAX_UPDATES_PER_SECOND = <%= scope.lookupvar('graphite::gr_max_updates_per_second') %>
-
-MAX_CREATES_PER_MINUTE = <%= scope.lookupvar('graphite::gr_max_creates_per_minute') %>
-
+STORAGE_DIR              = <%= scope.lookupvar('graphite::storage_dir') %>
+LOCAL_DATA_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+WHITELISTS_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/lists/
+CONF_DIR                 = <%= scope.lookupvar('graphite::install_dir') %>/conf/
+LOG_DIR                  = <%= scope.lookupvar('graphite::storage_dir') %>/log/
+PID_DIR                  = <%= scope.lookupvar('graphite::storage_dir') %>/
+LOCAL_DATA_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+ENABLE_LOGROTATION       = True
+USER                     = <%= scope.lookupvar('graphite::user') %>
+MAX_CACHE_SIZE           = <%= scope.lookupvar('graphite::max_cache_size') %>
+MAX_UPDATES_PER_SECOND   = <%= scope.lookupvar('graphite::max_updates_per_second') %>
+MAX_CREATES_PER_MINUTE   = <%= scope.lookupvar('graphite::max_creates_per_minute') %>
 LOG_LISTENER_CONNECTIONS = True
-USE_FLOW_CONTROL = True
-LOG_UPDATES = False
-LOG_CACHE_HITS = False
-LOG_CACHE_QUEUE_SORTS = True
-CACHE_WRITE_STRATEGY = <%= scope.lookupvar('graphite::gr_cache_write_strategy') %>
-WHISPER_AUTOFLUSH = False
+USE_FLOW_CONTROL         = True
+LOG_UPDATES              = False
+LOG_CACHE_HITS           = False
+LOG_CACHE_QUEUE_SORTS    = True
+CACHE_WRITE_STRATEGY     = <%= scope.lookupvar('graphite::params::cache_write_strategy') %>
+WHISPER_AUTOFLUSH        = False
 WHISPER_FALLOCATE_CREATE = True
-USE_WHITELIST = <%= scope.lookupvar('graphite::gr_use_whitelist') %>
-CARBON_METRIC_INTERVAL = <%= scope.lookupvar('graphite::gr_carbon_metric_interval') %>
-ENABLE_AMQP = <%= scope.lookupvar('graphite::gr_amqp_enable') %>
-AMQP_VERBOSE = <%= scope.lookupvar('graphite::gr_amqp_verbose') %>
-AMQP_HOST = <%= scope.lookupvar('graphite::gr_amqp_host') %>
-AMQP_PORT = <%= scope.lookupvar('graphite::gr_amqp_port') %>
-AMQP_VHOST = <%= scope.lookupvar('graphite::gr_amqp_vhost') %>
-AMQP_USER = <%= scope.lookupvar('graphite::gr_amqp_user') %>
-AMQP_PASSWORD = <%= scope.lookupvar('graphite::gr_amqp_password') %>
-AMQP_EXCHANGE = <%= scope.lookupvar('graphite::gr_amqp_exchange') %>
-AMQP_METRIC_NAME_IN_BODY = <%= scope.lookupvar('graphite::gr_amqp_metric_name_in_body') %>
+USE_WHITELIST            = <%= scope.lookupvar('graphite::params::cache_use_whitelist') %>
+CARBON_METRIC_INTERVAL   = <%= scope.lookupvar('graphite::params::carbon_metric_interval') %>
+<% if scope.lookupvar('graphite::params::amqp_enable') == true %>
+ENABLE_AMQP              = <%= scope.lookupvar('graphite::params::amqp_enable') %>
+AMQP_VERBOSE             = <%= scope.lookupvar('graphite::params::amqp_verbose') %>
+AMQP_HOST                = <%= scope.lookupvar('graphite::params::amqp_host') %>
+AMQP_PORT                = <%= scope.lookupvar('graphite::params::amqp_port') %>
+AMQP_VHOST               = <%= scope.lookupvar('graphite::params::amqp_vhost') %>
+AMQP_USER                = <%= scope.lookupvar('graphite::params::amqp_user') %>
+AMQP_PASSWORD            = <%= scope.lookupvar('graphite::params::amqp_password') %>
+AMQP_EXCHANGE            = <%= scope.lookupvar('graphite::params::amqp_exchange') %>
+AMQP_METRIC_NAME_IN_BODY = <%= scope.lookupvar('graphite::params::amqp_metric_name_in_body') %>
+<% end %>
+<% 
+scope.lookupvar('graphite::caches').each do | name, cache | 
+cc = 0
+if cache['line_receiver_interface'] == nil 
+  cache['line_receiver_interface'] = scope.lookupvar('graphite::params::cache_line_receiver_interface')
+end
+if cache['line_receiver_port'] == nil 
+  cache['line_receiver_port'] = scope.lookupvar('graphite::params::cache_line_receiver_port')
+end
+if cache['enable_udp_listener'] == nil 
+  cache['enable_udp_listener'] = scope.lookupvar('graphite::params::cache_enable_udp_listener')
+end
+if cache['udp_receiver_interface'] == nil 
+  cache['udp_receiver_interface'] = scope.lookupvar('graphite::params::cache_udp_receiver_interface')
+end
+if cache['udp_receiver_port'] == nil 
+  cache['udp_receiver_port'] = scope.lookupvar('graphite::params::cache_udp_receiver_port')
+end
+if cache['pickle_receiver_interface'] == nil 
+  cache['pickle_receiver_interface'] = scope.lookupvar('graphite::params::cache_pickle_receiver_interface')
+end
+if cache['pickle_receiver_port'] == nil 
+  cache['pickle_receiver_port'] = scope.lookupvar('graphite::params::cache_pickle_receiver_port')
+end
+if cache['cache_write_strategy'] == nil 
+  cache['cache_write_strategy'] = scope.lookupvar('graphite::params::cache_cache_write_strategy')
+end
+if cache['use_insecure_unpickler'] == nil 
+  cache['use_insecure_unpickler'] = scope.lookupvar('graphite::params::cache_use_insecure_unpickler')
+end
+if cache['use_whitelist'] == nil 
+  cache['use_whitelist'] = scope.lookupvar('graphite::params::cache_use_whitelist')
+end
+if cache['query_interface'] == nil 
+  cache['query_interface'] = scope.lookupvar('graphite::params::cache_query_interface')
+end
+if cache['query_port'] == nil 
+  cache['query_port'] = scope.lookupvar('graphite::params::cache_query_port')
+end
+if cache['count'] == nil 
+  cache['count'] = scope.lookupvar('graphite::params::cache_count')
+end
+while cc < cache['count'].to_i
+%>
+[cache:<%= cc %>]
+LINE_RECEIVER_INTERFACE   = <%= cache['line_receiver_interface'] %>
+LINE_RECEIVER_PORT        = <%= cache['line_receiver_port'].to_i  + (cc.to_i * 10) %>
+ENABLE_UDP_LISTENER       = <%= cache['enable_udp_listener'] %>
+UDP_RECEIVER_INTERFACE    = <%= cache['udp_receiver_interface'] %>
+UDP_RECEIVER_PORT         = <%= cache['udp_receiver_port'].to_i  + (cc.to_i * 10) %>
+PICKLE_RECEIVER_INTERFACE = <%= cache['pickle_receiver_interface'] %>
+PICKLE_RECEIVER_PORT      = <%= cache['pickle_receiver_port'].to_i  + (cc.to_i * 10) %>
+USE_INSECURE_UNPICKLER    = <%= cache['use_insecure_unpickler'] %>
+CACHE_QUERY_INTERFACE     = <%= cache['query_interface'] %>
+CACHE_QUERY_PORT          = <%= cache['query_port'].to_i  + (cc.to_i * 10) %>
+<% cc += 1 
+end %>
+
 
 [relay]
-ENABLE_LOGROTATION = True
-LOG_LISTENER_CONNECTIONS = True
+STORAGE_DIR                = <%= scope.lookupvar('graphite::install_dir') %>
+LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+WHITELISTS_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/lists/
+CONF_DIR                   = <%= scope.lookupvar('graphite::install_dir') %>/conf/
+LOG_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/log/
+PID_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/
+LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+ENABLE_LOGROTATION         = True
+USER                       = <%= scope.lookupvar('graphite::user') %>
+LOG_LISTENER_CONNECTIONS   = True
 MAX_DATAPOINTS_PER_MESSAGE = 500
-MAX_QUEUE_SIZE = <%= scope.lookupvar('graphite::gr_relay_max_queue_size') %>
-USE_FLOW_CONTROL = <%= scope.lookupvar('graphite::gr_relay_use_flow_control') %>
-USE_WHITELIST = <%= scope.lookupvar('graphite::gr_use_whitelist') %>
-CARBON_METRIC_INTERVAL = <%= scope.lookupvar('graphite::gr_carbon_metric_interval') %>
+MAX_QUEUE_SIZE             = <%= scope.lookupvar('graphite::params::relay_max_queue_size') %>
+USE_FLOW_CONTROL           = <%= scope.lookupvar('graphite::params::relay_use_flow_control') %>
+USE_WHITELIST              = <%= scope.lookupvar('graphite::params::relay_use_whitelist') %>
+CARBON_METRIC_INTERVAL     = <%= scope.lookupvar('graphite::params::relay_carbon_metric_interval') %>
+
+
+<% scope.lookupvar('graphite::relays').each do | name, relay | %>
+[relay:<%= name %>]
+LINE_RECEIVER_INTERFACE    = <%= relay['line_receiver_interface'] %>
+LINE_RECEIVER_PORT         = <%= relay['line_receiver_port'] %>
+PICKLE_RECEIVER_INTERFACE  = <%= relay['pickle_receiver_interface'] %>
+PICKLE_RECEIVER_PORT       = <%= relay['pickle_receiver_port'] %>
+  <%- if relay['to_cache'] == true
+    count = 0
+    destinations = ''
+    host, port = relay['destinations'][0].to_s.split(':')
+    while count < relay['cache_count'].to_i
+      new_port = port.to_i + (10 * count)
+      destinations = "#{destinations}, #{host}:#{new_port}:#{count}"
+      count += 1
+    end
+    # chomp first character, which is a ,
+    
+    else
+      relay['destinations'].each do | destination |
+        destinations = "#{destinations},#{destination}"
+      end
+    end 
+
+    destinations[0] = '' 
+  %>
+DESTINATIONS               = <%= destinations %>
+RELAY_METHOD               = <%= relay['relay_method'] %>
+REPLICATION_FACTOR         = <%= relay['replication_factor'] %>
+MAX_DATAPOINTS_PER_MESSAGE = <%= relay['max_datapoints_per_message'] %>
+MAX_QUEUE_SIZE             = <%= relay['max_queue_size'] %>
+USE_FLOW_CONTROL           = <%= relay['use_flow_control'] %>
+USE_WHITELIST              = <%= relay['use_whitelist'] %>
+  <% end %>
+<% end %>
 
 [aggregator]
-ENABLE_LOGROTATION = True
-USER = <%= scope.lookupvar('graphite::gr_user') %>
-REPLICATION_FACTOR = <%= scope.lookupvar('graphite::gr_aggregator_replication_factor') %>
-MAX_QUEUE_SIZE = <%= scope.lookupvar('graphite::gr_aggregator_max_queue_size') %>
-USE_FLOW_CONTROL = <%= scope.lookupvar('graphite::gr_aggregator_use_flow_control') %>
+STORAGE_DIR                = <%= scope.lookupvar('graphite::install_dir') %>
+LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+WHITELISTS_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/lists/
+CONF_DIR                   = <%= scope.lookupvar('graphite::install_dir') %>/conf/
+LOG_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/log/
+PID_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/
+LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+ENABLE_LOGROTATION         = True
+USER                       = <%= scope.lookupvar('graphite::params::user') %>
+REPLICATION_FACTOR         = <%= scope.lookupvar('graphite::params::aggregator_replication_factor') %>
+MAX_QUEUE_SIZE             = <%= scope.lookupvar('graphite::params::aggregator_max_queue_size') %>
+USE_FLOW_CONTROL           = <%= scope.lookupvar('graphite::params::aggregator_use_flow_control') %>
 MAX_DATAPOINTS_PER_MESSAGE = 500
-MAX_AGGREGATION_INTERVALS = <%= scope.lookupvar('graphite::gr_aggregator_max_intervals') %>
-USE_WHITELIST = <%= scope.lookupvar('graphite::gr_use_whitelist') %>
-CARBON_METRIC_INTERVAL = <%= scope.lookupvar('graphite::gr_carbon_metric_interval') %>
-LOG_LISTENER_CONNECTIONS = True
+MAX_AGGREGATION_INTERVALS  = <%= scope.lookupvar('graphite::params::aggregator_max_intervals') %>
+USE_WHITELIST              = <%= scope.lookupvar('graphite::params::use_whitelist') %>
+CARBON_METRIC_INTERVAL     = <%= scope.lookupvar('graphite::params::carbon_metric_interval') %>
+LOG_LISTENER_CONNECTIONS   = True

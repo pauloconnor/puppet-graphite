@@ -6,9 +6,9 @@
 #
 # None.
 #
-class graphite::install::package inherits graphite::params { {
+class graphite::install::package inherits graphite::params {
 
-  package {
+  Package{
     provider => 'pip',
   }
 
