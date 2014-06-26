@@ -157,15 +157,37 @@ class graphite::params {
   }
 
   $relays                     = { 0 => {
-                                    line_receiver_interface    => '127.0.0.1',
-                                    line_receiver_port         => '2003',
-                                  }
+        line_receiver_interface    => '127.0.0.1',
+        line_receiver_port         => '2003',
+        pickle_receiver_interface  => '127.0.0.1',
+        pickle_receiver_port       => '2004',
+        destinations               => [ '127.0.0.1:2014' ],
+        relay_method               => 'rules',
+        replication_factor         => 1,
+        max_datapoints_per_message => 500,
+        max_queue_size             => 3000,
+        use_flow_control           => true,
+        use_whitelist              => false,
+        to_cache                   => true,
+        cache_count                => 1,
+      }
                                 }
 
-  $caches                     =  { 0=> {
-                                    line_receiver_interface   => '127.0.0.1',
-                                    line_receiver_port        => '2303',
-                                  },
+  $caches                     =  { 0 => {
+        line_receiver_interface   => '127.0.0.1',
+        line_receiver_port        => '2103',
+        enable_udp_listener       => true,
+        udp_receiver_interface    => '127.0.0.1',
+        udp_receiver_port         => '2103',
+        pickle_receiver_interface => '127.0.0.1',
+        pickle_receiver_port      => '2104',
+        cache_write_strategy      => 'naive',
+        use_insecure_unpickler    => false,
+        use_whitelist             => false,
+        query_interface           => '127.0.0.1',
+        query_port                => '7104',
+        count                     => 1
+      },
                                 }
 
   case $::osfamily {
