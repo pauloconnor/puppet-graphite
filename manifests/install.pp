@@ -44,22 +44,10 @@ class graphite::install(
     }
   }
 
-  package { $::graphite::params::graphitepkgs :
-    ensure   => 'installed',
-    provider => undef, # default to package provider auto-discovery
-  }->
-  package{'django-tagging':
-    ensure   => $django_tagging_ver,
-    provider => 'pip',
-  }->
-  package{'Twisted':
-    ensure   => $twisted_ver,
-    provider => 'pip',
-  }->
-  package{'txAMQP':
-    ensure   => $txamqp_ver,
-    provider => 'pip',
-  }
+  ensure_packages ([$::graphite::params::graphitepkgs,
+    'django-tagging',
+    'Twisted',
+    'txAMQP'])
 
   if $graphite::use_packages == true {
     include graphite::install::package
