@@ -16,7 +16,6 @@ class graphite::install(
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-
   ensure_resource('package','python-pip', {
     ensure => present,
     before => Package[$::graphite::params::graphitepkgs]
