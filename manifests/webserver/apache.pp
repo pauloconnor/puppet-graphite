@@ -112,7 +112,7 @@ class graphite::webserver::apache (
     debian: {
       # mod_header is disabled on Ubuntu by default,
       # but we need it for CORS headers
-      if $::graphite::gr_web_cors_allow_from_all {
+      if $::graphite::web_cors_allow_from_all {
         exec { 'enable mod_headers':
           command => 'a2enmod headers',
           require => Package[$::graphite::params::apache_wsgi_pkg]

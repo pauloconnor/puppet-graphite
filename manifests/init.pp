@@ -2,6 +2,8 @@
 #
 # This class installs and configures graphite/carbon/whisper.
 #
+# 12 bytes per data point
+#
 # === Parameters
 #
 # [*gr_user*]
@@ -292,6 +294,7 @@ class graphite (
   $install_dir               = '/opt/graphite',
   $storage_dir               = '/opt/graphite/storage',
   $additional_servers        = '',
+  $web_cors_allow_from_all   = true,
 ) inherits graphite::params {
   # Validation of input variables.
   # TODO - validate all the things

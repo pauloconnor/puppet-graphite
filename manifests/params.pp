@@ -102,7 +102,7 @@ class graphite::params {
   $webapp_remote_user_header_name = undef
   $web_server                     = 'apache'
   $web_servername                 = $::fqdn
-  $web_cors_allow_from_all        = false
+  $web_cors_allow_from_all        = true
 
   $storage_schemas           = [
     {

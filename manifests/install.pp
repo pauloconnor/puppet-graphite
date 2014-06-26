@@ -38,8 +38,8 @@ class graphite::install(
       provider => undef, # default to package provider auto-discovery
       before   => [
         Package['django-tagging'],
-        Package['twisted'],
-        Package['txamqp'],
+        Package['Twisted'],
+        Package['txAMQP'],
       ]
     }
   }
@@ -56,7 +56,7 @@ class graphite::install(
     ensure   => $twisted_ver,
     provider => 'pip',
   }->
-  package{'txAMPQ':
+  package{'txAMQP':
     ensure   => $txamqp_ver,
     provider => 'pip',
   }

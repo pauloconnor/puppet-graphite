@@ -18,30 +18,8 @@ class graphite::config inherits graphite::params {
 
   # we need an web server with python support
   # apache with mod_wsgi or nginx with gunicorn
-  case $graphite::web_server {
-    'apache': {
-      include graphite::webserver::apache
-      $web_server_package_require = [Package["${::graphite::params::web_server_pkg}"]]
-    }
-    'nginx': {
-      # Configure gunicorn and nginx.
-      include graphite::webserver::gunicorn
-      include graphite::webserver::nginx
-      $web_server_package_require = [Package["${::graphite::params::web_server_pkg}"]]
-    }
-    'wsgionly': {
-      # Configure gunicorn only without nginx.
-      include graphite::webserver::gunicorn
-      $web_server_package_require = undef
-    }
-    'none': {
-      # Don't configure apache, gunicorn or nginx. Leave all webserver configuration to something external.
-      $web_server_package_require = undef
-    }
-    default: {
-      fail('The only supported web servers are \'apache\', \'nginx\', \'wsgionly\' and \'none\'')
-    }
-  }
+  include graphite::webserver::apache
+  $web_server_package_require = [Package["${::graphite::params::web_server_pkg}"]]
 
   # first init of user db for graphite
 
