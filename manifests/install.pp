@@ -17,10 +17,10 @@ class graphite::install(
   }
 
 
-  package { 'python-pip':
+  ensure_resource('package','python-pip', {
     ensure => present,
     before => Package[$::graphite::params::graphitepkgs]
-  }
+  })
   #->
   #Package {
   #  provider => 'pip',
@@ -44,10 +44,25 @@ class graphite::install(
     }
   }
 
-  ensure_packages ([$::graphite::params::graphitepkgs,
-    'django-tagging',
-    'Twisted',
-    'txAMQP'])
+  ensure_resource('package', $::graphite::params::graphitepkgs, {
+    ensure   => 'installed',
+    provider => undef, # default to package provider auto-discovery
+  })
+
+  ensure_resource('package', 'django-tagging', {
+    ensure   => $django_tagging_ver,
+    provider => 'pip',
+  })
+
+  ensure_resource('package', 'Twisted', {
+    ensure   => $twisted_ver,
+    provider => 'pip',
+  })
+
+  ensure_resource('package', 'txAMQP', {
+    ensure   => $txamqp_ver,
+    provider => 'pip',
+  })
 
   if $graphite::use_packages == true {
     include graphite::install::package
