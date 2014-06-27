@@ -17,15 +17,15 @@ class graphite::install(
   }
 
 
-  ensure_resource('package','python-pip', {
+  package { 'python-pip' :
     ensure => present,
     before => Package[$::graphite::params::graphitepkgs]
-  })
-  #->
-  #Package {
-  #  provider => 'pip',
-  #  require  => Package['python-pip'],
-  #}
+  }
+  ->
+  Package {
+    provider => 'pip',
+    require  => Package['python-pip'],
+  }
 
   # for full functionality we need these packages:
   # madatory: python-cairo, python-django, python-twisted,
