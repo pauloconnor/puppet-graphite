@@ -16,6 +16,7 @@ class graphite::install(
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
+
   ensure_resource('package','python-pip', {
     ensure => present,
     before => Package[$::graphite::params::graphitepkgs]
@@ -43,25 +44,33 @@ class graphite::install(
     }
   }
 
-  ensure_resource('package', $::graphite::params::graphitepkgs, {
-    ensure   => 'installed',
-    provider => undef, # default to package provider auto-discovery
-  })
-
-  ensure_resource('package', 'django-tagging', {
-    ensure   => $django_tagging_ver,
-    provider => 'pip',
-  })
-
-  ensure_resource('package', 'Twisted', {
-    ensure   => $twisted_ver,
-    provider => 'pip',
-  })
-
-  ensure_resource('package', 'txAMQP', {
-    ensure   => $txamqp_ver,
-    provider => 'pip',
-  })
+  if !defined(Package[$::graphite::params::graphitepkgs]) {
+    package { $::graphite::params::graphitepkgs :
+      ensure   => 'installed',
+      provider => undef, # default to package provider auto-discovery
+      before   => Package['django-tagging'],
+    }
+  }
+  if !defined(Package['django-tagging']){
+    package{'django-tagging':
+      ensure   => $django_tagging_ver,
+      provider => 'pip',
+      before   => Package['Twisted'],
+    }
+  }
+  if !defined(Package['Twisted']){
+    package{'Twisted':
+      ensure   => $twisted_ver,
+      provider => 'pip',
+      before   => Package['txAMQP'],
+    }
+  }
+  if !defined(Package['txAMPQ']) {
+    package{'txAMQP':
+      ensure   => $txamqp_ver,
+      provider => 'pip',
+    }
+  }
 
   if $graphite::use_packages == true {
     include graphite::install::package

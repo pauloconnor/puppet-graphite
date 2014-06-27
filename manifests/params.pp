@@ -217,7 +217,7 @@ class graphite::params {
         'python-memcache',
         'python-sqlite',
         'python-simplejson',
-        'python-mysqldb',
+#        'python-mysqldb',
         'python-psycopg2'
       ]
     }
