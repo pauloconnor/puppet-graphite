@@ -33,6 +33,107 @@ class graphite::install(
   # optinal: python-ldap, python-memcache, memcached, python-sqlite
 
   # using the pip package provider requires python-pip
+
+  if !defined(Package['python-cairo']) {
+    package { 'python-cairo':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-twisted']) {
+    package { 'python-twisted':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-django']) {
+    package { 'python-django':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-django-tagging']) {
+    package { 'python-django-tagging':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-ldap']) {
+    package { 'python-ldap':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-memcache']) {
+    package { 'python-memcache':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-sqlite']) {
+    package { 'python-sqlite':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-simplejson']) {
+    package { 'python-simplejson':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-mysqldb']) {
+    package { 'python-mysqldb':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
+  if !defined(Package['python-psycopg2']) {
+    package { 'python-psycopg2':
+      provider => undef,
+      before   => [
+        Package['django-tagging'],
+        Package['Twisted'],
+        Package['txAMQP']
+      ]
+    }
+  }
   if ! defined(Package[$::graphite::params::python_dev_pkg]) {
     package { $::graphite::params::python_dev_pkg :
       provider => undef, # default to package provider auto-discovery
