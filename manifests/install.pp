@@ -134,16 +134,6 @@ class graphite::install(
       ]
     }
   }
-  if ! defined(Package[$::graphite::params::python_dev_pkg]) {
-    package { $::graphite::params::python_dev_pkg :
-      provider => undef, # default to package provider auto-discovery
-      before   => [
-        Package['django-tagging'],
-        Package['Twisted'],
-        Package['txAMQP'],
-      ]
-    }
-  }
 
   if !defined(Package[$::graphite::params::graphitepkgs]) {
     package { $::graphite::params::graphitepkgs :
