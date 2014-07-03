@@ -103,6 +103,7 @@ class graphite::params {
   $web_server                     = 'apache'
   $web_servername                 = $::fqdn
   $web_cors_allow_from_all        = true
+  $web_server_port                = 80
 
   $storage_schemas           = [
     {
