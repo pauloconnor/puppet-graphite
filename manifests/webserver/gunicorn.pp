@@ -17,9 +17,10 @@ class graphite::webserver::gunicorn inherits graphite::params {
 
   package {
     'gunicorn':
-      ensure => installed,
-      before => Exec['Chown graphite for web user'],
-      notify => Exec['Chown graphite for web user'];
+      ensure   => installed,
+      provider => 'pip',
+      before   => Exec['Chown graphite for web user'],
+      notify   => Exec['Chown graphite for web user'];
   }
 
   service {
