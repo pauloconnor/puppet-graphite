@@ -11,6 +11,8 @@ class graphite::webserver::nginx inherits graphite::params {
 
   Exec { path => '/bin:/usr/bin:/usr/sbin' }
 
+  include graphite::webserver::gunicorn
+
   if $::osfamily != 'debian' {
     fail("nginx-based graphite is not supported on ${::operatingsystem} (only supported on Debian)")
   }
@@ -19,7 +21,7 @@ class graphite::webserver::nginx inherits graphite::params {
 
   package {
     'nginx':
-      ensure => '1.5.8-yelp4~lucid',
+      ensure => 'installed',
       before => Exec['Chown graphite for web user'],
       notify => Exec['Chown graphite for web user'];
   }
@@ -83,7 +85,7 @@ class graphite::webserver::nginx inherits graphite::params {
   # HTTP basic authentication
   $nginx_htpasswd_file_presence = $::graphite::nginx_htpasswd ? {
     undef   => absent,
-    default => file,
+    default => absent,
   }
   file {
     '/etc/nginx/graphite-htpasswd':
