@@ -19,7 +19,7 @@ class graphite::webserver::nginx inherits graphite::params {
 
   package {
     'nginx':
-      ensure => installed,
+      ensure => '1.5.8',
       before => Exec['Chown graphite for web user'],
       notify => Exec['Chown graphite for web user'];
   }
