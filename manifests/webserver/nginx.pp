@@ -11,7 +11,8 @@ class graphite::webserver::nginx inherits graphite::params {
 
   Exec { path => '/bin:/usr/bin:/usr/sbin' }
 
-  include graphite::webserver::gunicorn
+  #include graphite::webserver::gunicorn
+  include graphite::webserver::uwsgi
 
   if $::osfamily != 'debian' {
     fail("nginx-based graphite is not supported on ${::operatingsystem} (only supported on Debian)")
