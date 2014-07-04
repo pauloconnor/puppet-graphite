@@ -283,6 +283,7 @@ class graphite (
   $enable_carbon_aggregator  = $graphite::params::enable_carbon_aggregator,
   $enable_webapp             = $graphite::params::enable_webapp,
   $web_server                = $graphite::params::web_server,
+  $nginx_htpasswd,
   $webapp_secret_key         = $graphite::params::webapp_secret_key,
   $use_packages              = $graphite::params::use_packages,
   $memcache_hosts            = $graphite::params::memcache_hosts,
