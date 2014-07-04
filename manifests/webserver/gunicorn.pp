@@ -38,7 +38,9 @@ class graphite::webserver::gunicorn inherits graphite::params {
   }
 
   # Deploy configfiles
-
+  file { '/etc/gunicorn.d':
+    ensure => 'directory',
+  }->
   file {
     '/etc/gunicorn.d/graphite':
       ensure  => file,
