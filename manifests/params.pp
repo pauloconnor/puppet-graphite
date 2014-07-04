@@ -81,7 +81,7 @@ class graphite::params {
   $relay_cache_count                     = 1
   $relay_carbon_metric_interval          = 60
 
-  $django_1_4_or_less             = false
+  $django_1_4_or_less             = true
   $django_db_engine               = 'django.db.backends.sqlite3'
   $django_db_name                 = 'graphite.db'
   $django_db_user                 = ''
