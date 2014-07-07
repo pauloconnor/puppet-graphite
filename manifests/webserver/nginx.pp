@@ -61,7 +61,6 @@ class graphite::webserver::nginx inherits graphite::params {
       mode    => '0644',
       content => template('graphite/etc/nginx/conf.d/graphite.erb'),
       require => [
-        File['/etc/nginx/sites-available'],
         Exec['Initial django db creation'],
         Exec['Chown graphite for web user']
       ],
