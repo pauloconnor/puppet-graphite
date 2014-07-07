@@ -1,0 +1,8 @@
+[uwsgi]
+chdir=<%= scope.lookupvar('graphite::install_dir') %>
+module=mysite.wsgi:application
+master=True
+pidfile=<%= scope.lookupvar('graphite::storage_dir') %>/graphite-uwsgi.pid
+vacuum=True
+max-requests=5000
+daemonize=<%= scope.lookupvar('graphite::storage_dir') %>/graphite-uwsgi.log

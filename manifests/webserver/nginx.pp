@@ -51,34 +51,19 @@ class graphite::webserver::nginx inherits graphite::params {
       ensure  => directory,
       mode    => '0755',
       require => Package['nginx'];
-    '/etc/nginx/sites-available':
-      ensure  => directory,
-      mode    => '0755',
-      require => File['/etc/nginx'];
-    '/etc/nginx/sites-enabled':
-      ensure  => directory,
-      mode    => '0755',
-      require => File['/etc/nginx'];
   }
 
   # Deploy configfiles
 
   file {
-    '/etc/nginx/sites-available/graphite':
+    '/etc/nginx/conf.d/graphite':
       ensure  => file,
       mode    => '0644',
-      content => template('graphite/etc/nginx/sites-available/graphite.erb'),
+      content => template('graphite/etc/nginx/conf.d/graphite.erb'),
       require => [
         File['/etc/nginx/sites-available'],
         Exec['Initial django db creation'],
         Exec['Chown graphite for web user']
-      ];
-    '/etc/nginx/sites-enabled/graphite':
-      ensure  => link,
-      target  => '/etc/nginx/sites-available/graphite',
-      require => [
-        File['/etc/nginx/sites-available/graphite'],
-        File['/etc/nginx/sites-enabled']
       ],
       notify  => Service['nginx'];
   }
