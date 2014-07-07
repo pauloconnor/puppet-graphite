@@ -19,7 +19,7 @@ class graphite::config inherits graphite::params {
   # we need an web server with python support
   # apache with mod_wsgi or nginx with gunicorn
   #include graphite::webserver::nginx
-  include graphite::webserver::apache
+  #include graphite::webserver::apache
   #$web_server_package_require = [Package["${::graphite::params::web_server_pkg}"]]
 
   # first init of user db for graphite
