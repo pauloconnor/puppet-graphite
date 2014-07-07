@@ -104,6 +104,7 @@ class graphite::params {
   $web_servername                 = $::fqdn
   $web_cors_allow_from_all        = true
   $web_server_port                = 80
+  $use_remote_user_auth           = false
 
   $storage_schemas           = [
     {

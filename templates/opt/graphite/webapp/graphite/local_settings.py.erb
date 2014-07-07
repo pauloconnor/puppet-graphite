@@ -160,7 +160,7 @@ LDAP_USER_QUERY = "<%= scope.lookupvar('graphite::gr_ldap_user_query') %>"
 #
 <% if scope.lookupvar('graphite::params::django_1_4_or_less') %>
 DATABASE_ENGINE = '<%= scope.lookupvar('graphite::params::django_db_engine') %>'
-DATABASE_NAME = '<%= scope.lookupvar('graphite::params::django_db_name') %>'
+DATABASE_NAME = '<%= scope.lookupvar('graphite::storage_dir') %>/<%= scope.lookupvar('graphite::params::django_db_name') %>'
 DATABASE_USER = '<%= scope.lookupvar('graphite::params::django_db_user') %>'
 DATABASE_PASSWORD = '<%= scope.lookupvar('graphite::params::django_db_password') %>'
 DATABASE_HOST = '<%= scope.lookupvar('graphite::params::django_db_host') %>'
@@ -233,7 +233,7 @@ REMOTE_FIND_CACHE_DURATION = <%= scope.lookupvar('graphite::webapp_cluster_cache
 ## REMOTE_USER authentication. See: https://docs.djangoproject.com/en/dev/howto/auth-remote-user/
 # NOTE - this has been moved to the bottom to gain access to app_settings.
 <%-
-if scope.lookupvar('graphite::gr_use_remote_user_auth') == 'True'
+if scope.lookupvar('graphite::use_remote_user_auth') == 'True'
 	if scope.lookupvar('graphite::gr_remote_user_header_name') != :undef
 -%>
 # NOTE - This puppet module handles this slightly differently to the default Django approach
