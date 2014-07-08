@@ -311,10 +311,6 @@ class graphite (
   validate_string($install_dir)
   validate_bool($use_packages)
 
-  if $storage_dir == '' {
-    #$storage_dir = "${install_dir}/storage"
-  }
-
   # The anchor resources allow the end user to establish relationships
   # to the "main" class and preserve the relationship to the
   # implementation classes through a transitive relationship to
