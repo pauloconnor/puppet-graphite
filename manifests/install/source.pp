@@ -16,7 +16,7 @@ class graphite::install::source inherits graphite::params {
         ensure  => directory,
         owner   => 'www-data',
         group   => 'www-data',
-        mode    => 1750,
+        mode    => 750,
   }
 
   wget::fetch { 'wget_whisper':
@@ -66,5 +66,18 @@ class graphite::install::source inherits graphite::params {
   exec { 'install_carbon':
     cwd         => "${graphite::build_dir}/carbon-${::graphite::params::carbonVersion}",
     command     => "/usr/bin/python setup.py install --prefix=${::graphite::install_dir} --install-lib=${::graphite::install_dir}/lib",
+  }
+
+  file { [
+      "${graphite::install_dir}/bin",
+      "${graphite::install_dir}/conf",
+      "${graphite::install_dir}/examples",
+      "${graphite::install_dir}/lib",
+      "${graphite::install_dir}/storage",
+      "${graphite::install_dir}/webapp",
+      ]:
+    ensure    => directory,
+    owner     => 'www-data',
+    group     => 'www-data',
   }
 }
