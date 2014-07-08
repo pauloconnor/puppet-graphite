@@ -103,7 +103,6 @@ class graphite::install::source inherits graphite::params {
     creates     => "$graphite::storage_dir/graphite.db",
     command     => 'python manage.py syncdb --noinput',
     cwd         => "${graphite::install_dir}/webapp/graphite",
-    refreshonly => true,
     require     => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
   }
 }
