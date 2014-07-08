@@ -16,7 +16,7 @@ class graphite::install::source inherits graphite::params {
         ensure  => directory,
         owner   => 'www-data',
         group   => 'www-data',
-        mode    => 750,
+        mode    => 755,
   }
 
   wget::fetch { 'wget_whisper':
