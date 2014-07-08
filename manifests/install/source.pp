@@ -14,9 +14,9 @@ class graphite::install::source inherits graphite::params {
           #$graphite::params::webapp_dl_loc
         ]:
         ensure  => directory,
-        owner   => 'root',
-        group   => 'root',
-        mode    => 750,
+        owner   => 'www-data',
+        group   => 'www-data',
+        mode    => 1750,
   }
 
   wget::fetch { 'wget_whisper':
