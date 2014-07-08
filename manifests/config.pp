@@ -22,16 +22,6 @@ class graphite::config inherits graphite::params {
   #include graphite::webserver::apache
   #$web_server_package_require = [Package["${::graphite::params::web_server_pkg}"]]
 
-  # first init of user db for graphite
-
-  exec { 'Initial django db creation':
-    command     => 'python manage.py syncdb --noinput',
-    cwd         => "${graphite::install_dir}/webapp/graphite",
-    refreshonly => true,
-    subscribe   => Class['graphite::install'],
-    require     => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
-  }~>
-
   # change access permissions for web server
 
   exec { 'Chown graphite for web user':
