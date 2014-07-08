@@ -8,15 +8,11 @@
 # 
 class graphite::install::source inherits graphite::params { 
 
-  file { [$graphite::install_dir,
-          #$graphite::params::whisper_dl_loc,
-          #$graphite::params::carbon_dl_loc,
-          #$graphite::params::webapp_dl_loc
-        ]:
-        ensure  => directory,
-        owner   => 'www-data',
-        group   => 'www-data',
-        mode    => 755,
+  file { $graphite::install_dir:
+    ensure  => directory,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 755,
   }
 
   file { $graphite::storage_dir:
@@ -90,13 +86,17 @@ class graphite::install::source inherits graphite::params {
       "${graphite::install_dir}/conf",
       "${graphite::install_dir}/examples",
       "${graphite::install_dir}/lib",
-      "${graphite::install_dir}/storage",
       "${graphite::install_dir}/webapp",
       ]:
     ensure     => directory,
     owner      => 'www-data',
     group      => 'www-data',
     recurse    => true,
+  }
+
+  exec { 'set_storage_permissions':
+    command => "/bin/chown -R www-data:www-data ${graphite::storage_dir}",
+    require => Exec['install_carbon'],
   }
 
   exec { 'Initial django db creation':
