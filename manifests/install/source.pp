@@ -87,6 +87,8 @@ class graphite::install::source inherits graphite::params {
       "${graphite::install_dir}/examples",
       "${graphite::install_dir}/lib",
       "${graphite::install_dir}/webapp",
+      "${graphite::storage_dir}/log",
+      "${graphite::storage_dir}/log/webapp",
       ]:
     ensure     => directory,
     owner      => 'www-data',
