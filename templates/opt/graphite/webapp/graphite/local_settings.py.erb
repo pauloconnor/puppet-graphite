@@ -74,11 +74,11 @@ MEMCACHE_HOSTS = [<% scope.lookupvar('graphite::params::memcache_hosts').each do
 
 ## Data directories
 # NOTE: If any directory is unreadable in DATA_DIRS it will break metric browsing
-#WHISPER_DIR = '/opt/graphite/storage/whisper'
-#RRD_DIR = '/opt/graphite/storage/rrd'
-#DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
-#LOG_DIR = '/opt/graphite/storage/log/webapp'
-#INDEX_FILE = '/opt/graphite/storage/index'  # Search index file
+WHISPER_DIR = '<%= scope.lookupvar('graphite::storage_dir') %>/whisper'
+RRD_DIR = '<%= scope.lookupvar('graphite::storage_dir') %>/rrd'
+DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
+LOG_DIR = '<%= scope.lookupvar('graphite::storage_dir') %>/log/webapp'
+INDEX_FILE = '<%= scope.lookupvar('graphite::storage_dir') %>/index'  # Search index file
 
 
 #####################################
