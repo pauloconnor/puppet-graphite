@@ -32,8 +32,8 @@ class graphite::params {
   $user                            = 'root'
   $group                           = 'root'
   $max_cache_size                  = inf
-  $max_updates_per_second          = 500
-  $max_creates_per_minute          = 50
+  $max_updates_per_second          = 50000
+  $max_creates_per_minute          = 50000
   $carbon_metric_interval          = 60
   $timezone                        = 'UTC'
   $enable_carbon_relay             = true

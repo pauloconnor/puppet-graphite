@@ -19,6 +19,7 @@ LOG_CACHE_QUEUE_SORTS    = True
 CACHE_WRITE_STRATEGY     = <%= scope.lookupvar('graphite::params::cache_write_strategy') %>
 WHISPER_AUTOFLUSH        = False
 WHISPER_FALLOCATE_CREATE = True
+WHISPER_SPARSE_CREATE    = True
 USE_WHITELIST            = <%= scope.lookupvar('graphite::params::cache_use_whitelist') %>
 CARBON_METRIC_INTERVAL   = <%= scope.lookupvar('graphite::params::carbon_metric_interval') %>
 <% if scope.lookupvar('graphite::params::amqp_enable') == true %>
