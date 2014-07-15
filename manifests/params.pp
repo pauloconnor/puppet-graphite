@@ -31,8 +31,8 @@ class graphite::params {
   $install_dir                      = $graphite::install_dir
   $user                            = 'root'
   $group                           = 'root'
-  $max_cache_size                  = inf
-  $max_updates_per_second          = 50000
+  $max_cache_size                  = 500000
+  $max_updates_per_second          = 500000
   $max_creates_per_minute          = 50000
   $carbon_metric_interval          = 60
   $timezone                        = 'UTC'
@@ -59,7 +59,7 @@ class graphite::params {
   $cache_udp_receiver_port         = 2003
   $cache_pickle_receiver_interface = '0.0.0.0'
   $cache_pickle_receiver_port      = 2004
-  $cache_write_strategy            = 'sorted'
+  $cache_write_strategy            = 'naive'
   $cache_use_insecure_unpickler    = false
   $cache_use_whitelist             = false
   $cache_query_interface           = '0.0.0.0'

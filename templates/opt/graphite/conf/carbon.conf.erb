@@ -137,10 +137,10 @@ PICKLE_RECEIVER_PORT       = <%= relay['pickle_receiver_port'] %>
 DESTINATIONS               = <%= destinations %>
 RELAY_METHOD               = <%= relay['relay_method'] %>
 REPLICATION_FACTOR         = <%= relay['replication_factor'] %>
-MAX_DATAPOINTS_PER_MESSAGE = <%= relay['max_datapoints_per_message'] %>
-MAX_QUEUE_SIZE             = <%= relay['max_queue_size'] %>
-USE_FLOW_CONTROL           = <%= relay['use_flow_control'] %>
-USE_WHITELIST              = <%= relay['use_whitelist'] %>
+<% if relay['max_datapoints_per_message'] %>MAX_DATAPOINTS_PER_MESSAGE = <%= relay['max_datapoints_per_message'] %><% end %>
+<% if relay['max_queue_size'] %>MAX_QUEUE_SIZE             = <%= relay['max_queue_size'] %><% end %>
+<% if relay['use_flow_control'] %>USE_FLOW_CONTROL           = <%= relay['use_flow_control'] %><% end %>
+<% if relay['use_whitelist'] %>USE_WHITELIST              = <%= relay['use_whitelist'] %><% end %>
   <% end %>
 <% end %>
 
