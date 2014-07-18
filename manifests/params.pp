@@ -29,10 +29,10 @@ class graphite::params {
 
   $nginxconf_dir                   = '/etc/nginx/sites-available'
   $install_dir                      = $graphite::install_dir
-  $user                            = 'root'
-  $group                           = 'root'
-  $max_cache_size                  = 500000
-  $max_updates_per_second          = 500000
+  $user                            = 'www-data'
+  $group                           = 'www-data'
+  $max_cache_size                  = inf
+  $max_updates_per_second          = 50000
   $max_creates_per_minute          = 50000
   $carbon_metric_interval          = 60
   $timezone                        = 'UTC'
