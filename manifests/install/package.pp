@@ -6,11 +6,9 @@
 #
 # None.
 #
-class graphite::install::package inherits graphite::params {
-
-  Package{
-    provider => 'pip',
-  }
+class graphite::install::package (
+      
+      )inherits graphite::params {
 
   package{'graphite-web':
     ensure   => $::graphite::params::graphiteVersion,
