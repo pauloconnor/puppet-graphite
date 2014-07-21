@@ -20,28 +20,28 @@ end
 relay_list[0]=""
 %>
 
-relay_list=<%= relay_list %>
+
 case "$1" in
 	start)
-		for relay in relay_list; 
+		for relay in <%= relay_list %>; 
 		do
 			python /opt/graphite/bin/carbon-relay.py --instance=$relay start
 		done
 		;;
 	stop)
-		for relay in relay_list; 
+		for relay in <%= relay_list %>; 
 		do
 			python /opt/graphite/bin/carbon-relay.py --instance=$relay start
 		done
 		;;
 	status)
-		for relay in relay_list; 
+		for relay in <%= relay_list %>; 
 		do
 			python /opt/graphite/bin/carbon-relay.py --instance=$relay status
 		done
 		;;
 	restart)
-		for relay in relay_list; 
+		for relay in <%= relay_list %>; 
 		do
 			python /opt/graphite/bin/carbon-relay.py --instance=$relay stop
 			sleep 3

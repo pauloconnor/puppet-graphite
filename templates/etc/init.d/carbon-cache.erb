@@ -24,28 +24,27 @@
 	cache_list[0]=""
 %>
 
-cache_list = <%= caches %>
 case "$1" in
 	start)
-		for cache in cache_list; 
+		for cache in <%= cache_list %>; 
 		do
 			python /opt/graphite/bin/carbon-cache.py --instance=$cache start
 		done
 		;;
 	stop)
-		for cache in cache_list; 
+		for cache in <%= cache_list %>; 
 		do
 			python /opt/graphite/bin/carbon-cache.py --instance=$cache stop
 		done
 		;;
 	status)
-		for cache in cache_list; 
+		for cache in <%= cache_list %>; 
 		do
 			python /opt/graphite/bin/carbon-cache.py --instance=$cache status
 		done
 		;;
 	restart)
-		for cache in cache_list; 
+		for cache in <%= cache_list %>; 
 		do
 			python /opt/graphite/bin/carbon-cache.py --instance=$cache stop
 			sleep 3
