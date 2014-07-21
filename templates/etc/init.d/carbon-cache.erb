@@ -13,31 +13,43 @@
 ### END INIT INFO
 
 <% 
-	start_collection = ""
-	stop_collection = ""
-	status_collection = ""
+	caches=""
 	scope.lookupvar('graphite::caches').each do | name, cache | 
 	cc = 0
 	while cc < cache['count'].to_i
-		start_collection = "#{start_collection}\n\t\tpython /opt/graphite/bin/carbon-cache.py --instance=#{cc} start"
-		stop_collection = "#{stop_collection}\n\t\tpython /opt/graphite/bin/carbon-cache.py --instance=#{cc} stop"
-		status_collection = "#{status_collection}\n\t\tpython /opt/graphite/bin/carbon-cache.py --instance=#{cc} status"
+		caches = "#{caches} #{cc}"
 		cc += 1
 	end
 end %>
 
+cache_list = <%= cache %>
 case "$1" in
 	start)
-		<%= start_collection %>
+		for cache in cache_list; 
+		do
+			python /opt/graphite/bin/carbon-cache.py --instance=$cache start
+		done
 		;;
 	stop)
-		<%= stop_collection %>
+		for cache in cache_list; 
+		do
+			python /opt/graphite/bin/carbon-cache.py --instance=$cache stop
+		done
 		;;
 	status)
-		<%= status_collection %>
+		for cache in cache_list; 
+		do
+			python /opt/graphite/bin/carbon-cache.py --instance=$cache status
+		done
 		;;
 	restart)
-		$0 stop ; sleep 3 ; $0 start
+		for cache in cache_list; 
+		do
+			python /opt/graphite/bin/carbon-cache.py --instance=$cache stop
+			sleep 3
+			python /opt/graphite/bin/carbon-cache.py --instance=$cache  start
+		done
+		
 		RC=$?
 		exit $RC
 		;;

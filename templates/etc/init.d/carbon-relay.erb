@@ -13,27 +13,39 @@
 ### END INIT INFO
 
 <% 
-	start_collection = ""
-	stop_collection = ""
-	status_collection = ""
+	relay_list=""
 	scope.lookupvar('graphite::relays').each do | name, relay | 
-	start_collection = "#{start_collection}\n\t\tpython /opt/graphite/bin/carbon-relay.py --instance=#{name} start"
-	stop_collection = "#{stop_collection}\n\t\tpython /opt/graphite/bin/carbon-relay.py --instance=#{name} stop"
-	status_collection = "#{status_collection}\n\t\tpython /opt/graphite/bin/carbon-relay.py --instance=#{name} status"
-end %>
+	relay_list = "#{relay_list} #{name}"
+end 
+%>
 
+relay_list=<%= relay_list %>
 case "$1" in
 	start)
-		<%= start_collection %>
+		for relay in relay_list; 
+		do
+			python /opt/graphite/bin/carbon-relay.py --instance=$relay start
+		done
 		;;
 	stop)
-		<%= stop_collection %>
+		for relay in relay_list; 
+		do
+			python /opt/graphite/bin/carbon-relay.py --instance=$relay start
+		done
 		;;
 	status)
-		<%= status_collection %>
+		for relay in relay_list; 
+		do
+			python /opt/graphite/bin/carbon-relay.py --instance=$relay status
+		done
 		;;
 	restart)
-		$0 stop ; sleep 3 ; $0 start
+		for relay in relay_list; 
+		do
+			python /opt/graphite/bin/carbon-relay.py --instance=$relay stop
+			sleep 3
+			python /opt/graphite/bin/carbon-relay.py --instance=$relay start
+		done
 		RC=$?
 		exit $RC
 		;;
