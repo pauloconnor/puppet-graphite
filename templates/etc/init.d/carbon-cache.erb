@@ -13,14 +13,16 @@
 ### END INIT INFO
 
 <% 
-	caches=""
+	cache_list=""
 	scope.lookupvar('graphite::caches').each do | name, cache | 
-	cc = 0
-	while cc < cache['count'].to_i
-		caches = "#{caches} #{cc}"
-		cc += 1
-	end
-end %>
+		cc = 0
+		while cc < cache['count'].to_i
+			cache_list = "#{cache_list} #{cc}"
+			cc += 1
+		end
+	end 
+	cache_list[0]=""
+%>
 
 cache_list = <%= caches %>
 case "$1" in
