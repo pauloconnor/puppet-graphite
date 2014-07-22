@@ -74,7 +74,7 @@ class graphite::params {
   $relay_relay_method                    = 'consistent-hashing'
   $relay_replication_factor              = 1
   $relay_max_datapoints_per_message      = 500
-  $relay_max_queue_size                  = 500000
+  $relay_max_queue_size                  = 5000000
   $relay_use_flow_control                = true
   $relay_use_whitelist                   = false
   $relay_to_cache                        = false
