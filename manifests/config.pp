@@ -119,7 +119,7 @@ class graphite::config inherits graphite::params {
   file {
     "${graphite::install_dir}/conf/storage-schemas.conf":
       mode    => '0644',
-      content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb'),
+      content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb');
     "${graphite::install_dir}/conf/carbon.conf":
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/carbon.conf.erb'),
