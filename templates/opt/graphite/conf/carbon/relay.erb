@@ -18,9 +18,9 @@
   %>
 [relay:<%= @title %>]
 LINE_RECEIVER_INTERFACE    = <%= @line_receiver_interface %>
-LINE_RECEIVER_PORT         = <%= @line_receiver_port + @port_addition %>
+LINE_RECEIVER_PORT         = <%= @line_receiver_port.to_i + @port_addition.to_i %>
 PICKLE_RECEIVER_INTERFACE  = <%= @pickle_receiver_interface %>
-PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port + @port_addition %>
+PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port.to_i + @port_addition.to_i %>
 DESTINATIONS               = <%= destinations %>
 RELAY_METHOD               = <%= @relay_method %>
 REPLICATION_FACTOR         = <%= @replication_factor %>
