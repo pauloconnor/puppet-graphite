@@ -1,17 +1,17 @@
-define graphite::cache (
-  $line_receiver_interface   =   $graphite::params::cache_line_receiver_interface,
-  $line_receiver_port        =   $graphite::params::cache_line_receiver_port,
-  $enable_udp_listener       =   $graphite::params::cache_enable_udp_listener,
-  $udp_receiver_interface    =   $graphite::params::cache_udp_receiver_interface,
-  $udp_receiver_port         =   $graphite::params::cache_udp_receiver_port,
-  $pickle_receiver_interface =   $graphite::params::cache_pickle_receiver_interface,
-  $pickle_receiver_port      =   $graphite::params::cache_pickle_receiver_port,
-  $cache_write_strategy      =   $graphite::params::cache_cache_write_strategy,
-  $use_insecure_unpickler    =   $graphite::params::cache_use_insecure_unpickler,
-  $use_whitelist             =   $graphite::params::cache_use_whitelist,
-  $cache_query_interface     =   $graphite::params::cache_query_interface,
-  $cache_query_port          =   $graphite::params::cache_query_port,
-  $cache_count               =   $graphite::params::cache_count
+define graphite::carbon::cache (
+  $line_receiver_interface   = $graphite::params::cache_line_receiver_interface,
+  $line_receiver_port        = $graphite::params::cache_line_receiver_port,
+  $enable_udp_listener       = $graphite::params::cache_enable_udp_listener,
+  $udp_receiver_interface    = $graphite::params::cache_udp_receiver_interface,
+  $udp_receiver_port         = $graphite::params::cache_udp_receiver_port,
+  $pickle_receiver_interface = $graphite::params::cache_pickle_receiver_interface,
+  $pickle_receiver_port      = $graphite::params::cache_pickle_receiver_port,
+  $cache_write_strategy      = $graphite::params::cache_cache_write_strategy,
+  $use_insecure_unpickler    = $graphite::params::cache_use_insecure_unpickler,
+  $use_whitelist             = $graphite::params::cache_use_whitelist,
+  $cache_query_interface     = $graphite::params::cache_query_interface,
+  $cache_query_port          = $graphite::params::cache_query_port,
+  $cache_count               = $graphite::params::cache_count
   ) {
 
   # conf cache
@@ -48,9 +48,16 @@ define graphite::cache (
     fail('$cache_count must be an integer')
   }
 
-  concat::fragment { 'carbon-conf':
+  concat::fragment { "${graphite::install_dir}/conf/carbon.conf":
     target  => "${::graphite::params::install_dir}/conf/carbon.conf",
-    content => template('graphite/conf/_cache.conf.erb'),
-    order   => '020',
+    content => template('graphite/conf/carbon/cache.erb'),
+    order   => '15',
+  }
+
+  file { '/etc/init.d/carbon-cache':
+    ensure  => file,
+    mode    => '0750',
+    content => template('graphite/etc/init.d/carbon-cache.erb'),
+    require => Concat["${graphite::install_dir}/conf/carbon.conf"];
   }
 }

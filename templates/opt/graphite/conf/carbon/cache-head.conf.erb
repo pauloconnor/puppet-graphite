@@ -1,0 +1,35 @@
+[cache]
+STORAGE_DIR              = <%= scope.lookupvar('graphite::storage_dir') %>
+LOCAL_DATA_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+WHITELISTS_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/lists/
+CONF_DIR                 = <%= scope.lookupvar('graphite::install_dir') %>/conf/
+LOG_DIR                  = <%= scope.lookupvar('graphite::storage_dir') %>/log/
+PID_DIR                  = <%= scope.lookupvar('graphite::storage_dir') %>/
+LOCAL_DATA_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+ENABLE_LOGROTATION       = <%= scope.lookupvar('graphite::params::cache_enable_logrotation') %>
+USER                     = <%= scope.lookupvar('graphite::params::cache_user') %>
+MAX_CACHE_SIZE           = <%= scope.lookupvar('graphite::params::cache_max_cache_size') %>
+MAX_UPDATES_PER_SECOND   = <%= scope.lookupvar('graphite::params::cache_max_updates_per_second') %>
+MAX_CREATES_PER_MINUTE   = <%= scope.lookupvar('graphite::params::cache_max_creates_per_minute') %>
+LOG_LISTENER_CONNECTIONS = <%= scope.lookupvar('graphite::params::cache_log_listener_connections') %>
+USE_FLOW_CONTROL         = <%= scope.lookupvar('graphite::params::cache_use_flow_control') %>
+LOG_UPDATES              = <%= scope.lookupvar('graphite::params::cache_log_updates') %>
+LOG_CACHE_HITS           = <%= scope.lookupvar('graphite::params::cache_log_cache_hits') %>
+LOG_CACHE_QUEUE_SORTS    = <%= scope.lookupvar('graphite::params::cache_log_cache_queue_sorts') %>
+CACHE_WRITE_STRATEGY     = <%= scope.lookupvar('graphite::params::cache_cache_write_strategy') %>
+WHISPER_AUTOFLUSH        = <%= scope.lookupvar('graphite::params::cache_whisper_autoflush') %>
+WHISPER_FALLOCATE_CREATE = <%= scope.lookupvar('graphite::params::cache_whisper_fallocate_create') %>
+WHISPER_SPARSE_CREATE    = <%= scope.lookupvar('graphite::params::cache_whisper_sparse_create') %>
+USE_WHITELIST            = <%= scope.lookupvar('graphite::params::cache_use_whitelist') %>
+CARBON_METRIC_INTERVAL   = <%= scope.lookupvar('graphite::params::carbon_metric_interval') %>
+<% if scope.lookupvar('graphite::params::amqp_enable') == true %>
+ENABLE_AMQP              = <%= scope.lookupvar('graphite::params::amqp_enable') %>
+AMQP_VERBOSE             = <%= scope.lookupvar('graphite::params::amqp_verbose') %>
+AMQP_HOST                = <%= scope.lookupvar('graphite::params::amqp_host') %>
+AMQP_PORT                = <%= scope.lookupvar('graphite::params::amqp_port') %>
+AMQP_VHOST               = <%= scope.lookupvar('graphite::params::amqp_vhost') %>
+AMQP_USER                = <%= scope.lookupvar('graphite::params::amqp_user') %>
+AMQP_PASSWORD            = <%= scope.lookupvar('graphite::params::amqp_password') %>
+AMQP_EXCHANGE            = <%= scope.lookupvar('graphite::params::amqp_exchange') %>
+AMQP_METRIC_NAME_IN_BODY = <%= scope.lookupvar('graphite::params::amqp_metric_name_in_body') %>
+<% end %>

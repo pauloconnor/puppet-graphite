@@ -120,10 +120,6 @@ class graphite::config inherits graphite::params {
     "${graphite::install_dir}/conf/storage-schemas.conf":
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb');
-    "${graphite::install_dir}/conf/carbon.conf":
-      mode    => '0644',
-      content => template('graphite/opt/graphite/conf/carbon.conf.erb'),
-      notify  => $notify_services;
     "${graphite::install_dir}/conf/storage-aggregation.conf":
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/storage-aggregation.conf.erb'),
@@ -132,6 +128,40 @@ class graphite::config inherits graphite::params {
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/relay-rules.conf.erb'),
       notify  => $notify_services;
+  }
+
+  concat { "${graphite::install_dir}/conf/carbon.conf":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    notify  => $notify_services
+  }
+
+  concat::fragment { '00-header':
+    target  => "${graphite::install_dir}/conf/carbon.conf",
+    order   => '01',
+    content => "# This file managed by Puppet\n",
+  }
+
+  # Template uses $global_options, $defaults_options
+  concat::fragment { '02-cache-head':
+    target  => "${graphite::install_dir}/conf/carbon.conf",
+    order   => '02',
+    content => template('graphite/opt/graphite/conf/carbon/cache-head.conf.erb'),
+  }
+
+  # Template uses $global_options, $defaults_options
+  concat::fragment { '10-relay-head':
+    target  => "${graphite::install_dir}/conf/carbon.conf",
+    order   => '10',
+    content => template('graphite/opt/graphite/conf/carbon/relay-head.conf.erb'),
+  }
+
+  # Template uses $global_options, $defaults_options
+  concat::fragment { '20-relay-head':
+    target  => "${graphite::install_dir}/conf/carbon.conf",
+    order   => '20',
+    content => template('graphite/opt/graphite/conf/carbon/aggregator-head.conf.erb'),
   }
 
   logrotate::rule { 'carbon_logs':
@@ -156,13 +186,6 @@ class graphite::config inherits graphite::params {
     require    => File['/etc/init.d/carbon-cache'];
   }
 
-  file { '/etc/init.d/carbon-cache':
-    ensure  => file,
-    mode    => '0750',
-    content => template('graphite/etc/init.d/carbon-cache.erb'),
-    require => File["${graphite::install_dir}/conf/carbon.conf"];
-  }
-
   if $graphite::enable_carbon_relay {
     service { 'carbon-relay':
       ensure     => running,
@@ -176,7 +199,7 @@ class graphite::config inherits graphite::params {
       ensure  => file,
       mode    => '0750',
       content => template('graphite/etc/init.d/carbon-relay.erb'),
-      require => File["${graphite::install_dir}/conf/carbon.conf"];
+      require => Concat["${graphite::install_dir}/conf/carbon.conf"];
     }
   }
 
@@ -193,7 +216,7 @@ class graphite::config inherits graphite::params {
       ensure  => file,
       mode    => '0750',
       content => template('graphite/etc/init.d/carbon-aggregator.erb'),
-      require => File["${graphite::install_dir}/conf/carbon.conf"];
+      require => Concat["${graphite::install_dir}/conf/carbon.conf"];
     }
   }
 }

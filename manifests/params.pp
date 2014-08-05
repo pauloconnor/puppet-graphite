@@ -40,7 +40,7 @@ class graphite::params {
   $enable_carbon_cache             = true
   $enable_webapp                   = true
   $use_packages                    = true
-  $memcache_hosts                  = undef
+  $memcache_hosts                  = '127.0.0.1'
 
   $amqp_enable                      = False
   $amqp_verbose                     = False
@@ -51,6 +51,16 @@ class graphite::params {
   $amqp_password                    = 'guest'
   $amqp_exchange                    = 'graphite'
   $amqp_metric_name_in_body         = False
+
+  $cache_enable_logrotation       = False
+  $cache_log_listener_connections = True
+  $cache_use_flow_control         = True
+  $cache_log_updates              = False
+  $cache_log_cache_hits           = False
+  $cache_log_cache_queue_sorts    = True
+  $cache_whisper_autoflush        = False
+  $cache_whisper_fallocate_create = True
+  $cache_whisper_sparse_create    = True
 
   $cache_line_receiver_interface   = $::ipaddress
   $cache_line_receiver_port        = 2003
@@ -65,6 +75,8 @@ class graphite::params {
   $cache_query_interface           = $::ipaddress
   $cache_query_port                = 7002
   $cache_count                     = 1
+
+
 
   $relay_line_receiver_interface         = $::ipaddress
   $relay_line_receiver_port              = 2003

@@ -1,0 +1,18 @@
+[aggregator]
+STORAGE_DIR                = <%= scope.lookupvar('graphite::install_dir') %>
+LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+WHITELISTS_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/lists/
+CONF_DIR                   = <%= scope.lookupvar('graphite::install_dir') %>/conf/
+LOG_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/log/
+PID_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/
+LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+ENABLE_LOGROTATION         = True
+USER                       = <%= scope.lookupvar('graphite::params::user') %>
+REPLICATION_FACTOR         = <%= scope.lookupvar('graphite::params::aggregator_replication_factor') %>
+MAX_QUEUE_SIZE             = <%= scope.lookupvar('graphite::params::aggregator_max_queue_size') %>
+USE_FLOW_CONTROL           = <%= scope.lookupvar('graphite::params::aggregator_use_flow_control') %>
+MAX_DATAPOINTS_PER_MESSAGE = 500
+MAX_AGGREGATION_INTERVALS  = <%= scope.lookupvar('graphite::params::aggregator_max_intervals') %>
+USE_WHITELIST              = <%= scope.lookupvar('graphite::params::use_whitelist') %>
+CARBON_METRIC_INTERVAL     = <%= scope.lookupvar('graphite::params::carbon_metric_interval') %>
+LOG_LISTENER_CONNECTIONS   = True
