@@ -52,23 +52,23 @@ class graphite::params {
   $amqp_exchange                    = 'graphite'
   $amqp_metric_name_in_body         = False
 
-  $cache_line_receiver_interface   = '0.0.0.0'
+  $cache_line_receiver_interface   = $::ipaddress
   $cache_line_receiver_port        = 2003
   $cache_enable_udp_listener       = false
-  $cache_udp_receiver_interface    = '0.0.0.0'
+  $cache_udp_receiver_interface    = $::ipaddress
   $cache_udp_receiver_port         = 2003
-  $cache_pickle_receiver_interface = '0.0.0.0'
+  $cache_pickle_receiver_interface = $::ipaddress
   $cache_pickle_receiver_port      = 2004
   $cache_write_strategy            = 'naive'
   $cache_use_insecure_unpickler    = false
   $cache_use_whitelist             = false
-  $cache_query_interface           = '0.0.0.0'
+  $cache_query_interface           = $::ipaddress
   $cache_query_port                = 7002
   $cache_count                     = 1
 
-  $relay_line_receiver_interface         = '0.0.0.0'
+  $relay_line_receiver_interface         = $::ipaddress
   $relay_line_receiver_port              = 2003
-  $relay_pickle_receiver_interface       = '0.0.0.0'
+  $relay_pickle_receiver_interface       = $::ipaddress
   $relay_pickle_receiver_port            = 2004
   $relay_destinations                    = []
   $relay_relay_method                    = 'consistent-hashing'
