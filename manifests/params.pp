@@ -40,7 +40,7 @@ class graphite::params {
   $enable_carbon_cache             = true
   $enable_webapp                   = true
   $use_packages                    = true
-  $memcache_hosts                  = '127.0.0.1'
+  $memcache_hosts                  = ['127.0.0.1']
 
   $amqp_enable                      = False
   $amqp_verbose                     = False
