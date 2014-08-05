@@ -225,7 +225,8 @@ carbonlink_hosts = ""
 scope.lookupvar('graphite::caches').each do | name, cache | 
     cc = 0
     while cc < cache['count'].to_i
-        carbonlink_hosts = "#{carbonlink_hosts},\"#{cache['query_interface']}:#{cache['query_port']}:#{cc}\""
+        query_port = cache['query_port'] + (cc * 10)
+        carbonlink_hosts = "#{carbonlink_hosts},\"#{cache['query_interface']}:#{query_port}:#{cc}\""
         cc += 1 
     end 
     carbonlink_hosts[0] = ''
