@@ -78,7 +78,7 @@ define graphite::carbon::relay(
     $port_addition = $title * 10
   }
 
-  concat::fragment { "${graphite::install_dir}/conf/carbon.conf-relay-${title}":
+  concat::fragment { "conf/carbon.conf-relay-${title}":
     target  => "${::graphite::params::install_dir}/conf/carbon.conf",
     content => template('graphite/opt/graphite/conf/carbon/relay.erb'),
     order   => '25',

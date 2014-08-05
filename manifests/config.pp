@@ -130,10 +130,11 @@ class graphite::config inherits graphite::params {
       notify  => $notify_services;
   }
 
-  concat { "${graphite::install_dir}/conf/carbon.conf":
+  concat { "conf/carbon.conf':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
+    target  => "${graphite::install_dir}/conf/carbon.conf",
     notify  => $notify_services
   }
 

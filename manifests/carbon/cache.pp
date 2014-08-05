@@ -28,8 +28,8 @@ define graphite::carbon::cache (
   #if !is_numeric($udp_receiver_port) {
   #  fail('$udp_receiver_port must be an integer')
   #}
-  validate_re($cache_write_strategy, '^(max|sorted|naive)$',
-              fail('Please chose Max, Sorted or Naive for Write Strategy'))
+  #validate_re($cache_write_strategy, '^(max|sorted|naive)$',
+  #            fail('Please chose Max, Sorted or Naive for Write Strategy'))
   validate_bool($use_insecure_unpickler)
   validate_bool($use_whitelist)
   #if !is_ip_address($pickle_receiver_interface) {
@@ -48,7 +48,7 @@ define graphite::carbon::cache (
   #  fail('$cache_count must be an integer')
   #}
 
-  concat::fragment { "${graphite::install_dir}/conf/carbon.conf-cache-${title}":
+  concat::fragment { "conf/carbon.conf-cache-${title}":
     target  => "${::graphite::params::install_dir}/conf/carbon.conf",
     content => template('graphite/opt/graphite/conf/carbon/cache.erb'),
     order   => '15',
@@ -58,6 +58,6 @@ define graphite::carbon::cache (
     ensure  => file,
     mode    => '0750',
     content => template('graphite/etc/init.d/carbon-cache.erb'),
-    require => Concat["${graphite::install_dir}/conf/carbon.conf"];
+    require => Concat['conf/carbon.conf'];
   }
 }
