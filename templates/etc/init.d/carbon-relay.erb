@@ -14,7 +14,7 @@
 
 <% 
 	relay_list=""
-	scope.lookupvar('graphite::relays').each do | name, relay | 
+	scope.lookupvar('graphite::relay_list').each do | name | 
 	relay_list = "#{relay_list} #{name}"
 end 
 relay_list[0]=""
