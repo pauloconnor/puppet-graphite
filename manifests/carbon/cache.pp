@@ -50,7 +50,7 @@ define graphite::carbon::cache (
 
   concat::fragment { "${graphite::install_dir}/conf/carbon.conf":
     target  => "${::graphite::params::install_dir}/conf/carbon.conf",
-    content => template('graphite/conf/carbon/cache.erb'),
+    content => template('graphite/opt/graphite/conf/carbon/cache.erb'),
     order   => '15',
   }
 
