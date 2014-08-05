@@ -40,7 +40,6 @@ define graphite::carbon::relay(
     $to_cache                   = $graphite::params::relay_to_cache,
     $cache_count                = $graphite::params::relay_cache_count,
     $port_modifier              = true,
-    $port_addition              = 0,
   ) {
 
   if !is_ip_address($line_receiver_interface) {
