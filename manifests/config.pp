@@ -137,7 +137,7 @@ class graphite::config inherits graphite::params {
     notify  => $notify_services
   }
 
-  concat::fragment { '00-header':
+  concat::fragment { '01-graphite-header':
     target  => "${graphite::install_dir}/conf/carbon.conf",
     order   => '01',
     content => "# This file managed by Puppet\n",
