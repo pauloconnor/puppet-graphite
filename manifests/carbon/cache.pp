@@ -21,7 +21,7 @@ define graphite::carbon::cache (
   if !is_numeric($line_receiver_port) {
     fail ('$line_receiver_port must be an integer')
   }
-  validate_boolean($enable_udp_listener)
+  validate_bool($enable_udp_listener)
   if !is_ip_address($udp_receiver_interface) {
     fail('$udp_receiver_interface must be an IPv4 address')
   }
@@ -30,8 +30,8 @@ define graphite::carbon::cache (
   }
   validate_re($cache_write_strategy, '^(max|sorted|naive)$',
               fail('Please chose Max, Sorted or Naive for Write Strategy'))
-  validate_boolean($use_insecure_unpickler)
-  validate_boolean($use_whitelist)
+  validate_bool($use_insecure_unpickler)
+  validate_bool($use_whitelist)
   if !is_ip_address($pickle_receiver_interface) {
     fail('$pickle_receiver_interface must be an IPv4 address')
   }

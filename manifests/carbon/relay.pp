@@ -73,7 +73,7 @@ define graphite::carbon::relay(
   validate_bool($use_flow_control)
   validate_bool($use_whitelist)
   validate_bool($to_cache)
-  validate_boolean($port_modifier)
+  validate_bool($port_modifier)
 
   if $port_modifier {
     $port_addition = $title * 10
