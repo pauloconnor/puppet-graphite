@@ -9,8 +9,8 @@ define graphite::carbon::cache (
   $cache_write_strategy      = $graphite::params::cache_cache_write_strategy,
   $use_insecure_unpickler    = $graphite::params::cache_use_insecure_unpickler,
   $use_whitelist             = $graphite::params::cache_use_whitelist,
-  $cache_query_interface     = $graphite::params::cache_query_interface,
-  $cache_query_port          = $graphite::params::cache_query_port,
+  $query_interface           = $graphite::params::cache_query_interface,
+  $query_port                = $graphite::params::cache_query_port,
   $cache_count               = $graphite::params::cache_count
   ) {
 
