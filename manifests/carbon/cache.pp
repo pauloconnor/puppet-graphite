@@ -48,7 +48,7 @@ define graphite::carbon::cache (
     fail('$cache_count must be an integer')
   }
 
-  concat::fragment { "${graphite::install_dir}/conf/carbon.conf":
+  concat::fragment { "${graphite::install_dir}/conf/carbon.conf-caches":
     target  => "${::graphite::params::install_dir}/conf/carbon.conf",
     content => template('graphite/opt/graphite/conf/carbon/cache.erb'),
     order   => '15',
