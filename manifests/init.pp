@@ -301,7 +301,8 @@ class graphite (
   $additional_servers        = '',
   $web_cors_allow_from_all   = true,
   $use_remote_user_auth      = $graphite::params::use_remote_user_auth,
-  $relay_list               = [],
+  $relay_list                = [],
+  $cache_count,
 ) inherits graphite::params {
   # Validation of input variables.
   # TODO - validate all the things

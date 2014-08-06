@@ -15,7 +15,7 @@
 <% 
 	cache_list=""
 	cc = 0
-	while cc < @cache_count.to_i
+	while cc < scope.lookupvar('graphite::cache_count').to_i
 		cache_list = "#{cache_list} #{cc}"
 		cc += 1
 	end

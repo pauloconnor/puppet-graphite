@@ -53,11 +53,4 @@ define graphite::carbon::cache (
     content => template('graphite/opt/graphite/conf/carbon/cache.erb'),
     order   => '15',
   }
-
-  file { '/etc/init.d/carbon-cache':
-    ensure  => file,
-    mode    => '0750',
-    content => template('graphite/etc/init.d/carbon-cache.erb'),
-    require => Concat["${graphite::install_dir}/conf/carbon.conf"];
-  }
 }

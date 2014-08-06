@@ -176,6 +176,14 @@ class graphite::config inherits graphite::params {
     rotate_every  => 'day',
   }
 
+  
+  file { '/etc/init.d/carbon-cache':
+    ensure  => file,
+    mode    => '0750',
+    content => template('graphite/etc/init.d/carbon-cache.erb'),
+    require => Concat["${graphite::install_dir}/conf/carbon.conf"];
+  }
+
   # startup carbon engine
 
   service { 'carbon-cache':
