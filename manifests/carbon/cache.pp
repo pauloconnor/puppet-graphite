@@ -16,14 +16,14 @@ define graphite::carbon::cache (
 
   # conf cache
   if !is_ip_address($line_receiver_interface) {
-    fail('$line_receiver_interface must be an IPv4 address - ${line_receiver_interface}')
+    fail("$line_receiver_interface must be an IPv4 address - ${line_receiver_interface}")
   }
   if !is_numeric($line_receiver_port) {
     fail ('$line_receiver_port must be an integer')
   }
   validate_bool($enable_udp_listener)
   if !is_ip_address($udp_receiver_interface) {
-    fail('$udp_receiver_interface must be an IPv4 address - ${udp_receiver_interface}')
+    fail("$udp_receiver_interface must be an IPv4 address - ${udp_receiver_interface}")
   }
   if !is_numeric($udp_receiver_port) {
     fail('$udp_receiver_port must be an integer')
@@ -39,7 +39,7 @@ define graphite::carbon::cache (
     fail('$pickle_receiver_port must be an integer')
   }
   if !is_ip_address($query_interface) {
-    fail('$query_interface must be an IPv4 address - ${query_interface}')
+    fail("$query_interface must be an IPv4 address - ${query_interface}")
   }
   if !is_numeric($cache_query_port) {
     fail('$cache_query_port must be an integer')
