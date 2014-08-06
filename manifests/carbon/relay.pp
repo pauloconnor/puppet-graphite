@@ -79,7 +79,7 @@ define graphite::carbon::relay(
   }
 
   concat::fragment { "conf/carbon.conf-relay-${title}":
-    target  => "${::graphite::params::install_dir}/conf/carbon.conf",
+    target  => "${graphite::install_dir}/conf/carbon.conf",
     content => template('graphite/opt/graphite/conf/carbon/relay.erb'),
     order   => '25',
   }
