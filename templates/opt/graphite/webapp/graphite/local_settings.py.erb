@@ -222,10 +222,10 @@ REMOTE_FIND_CACHE_DURATION = <%= scope.lookupvar('graphite::webapp_cluster_cache
 # You *should* use 127.0.0.1 here in most cases
 <% 
 carbonlink_hosts = ""
-scope.lookupvar('::graphite::caches').each do | name, cache | 
+scope.lookupvar('graphite::caches').each do | name, cache | 
     cc = 0
     while cc < cache['count'].to_i
-        query_port = cache['query_port'] + (cc * 10)
+        query_port = cache['query_port'].to_i + (cc * 10)
         carbonlink_hosts = "#{carbonlink_hosts},\"#{cache['query_interface']}:#{query_port}:#{cc}\""
         cc += 1 
     end 
