@@ -15,38 +15,38 @@ define graphite::carbon::cache (
   ) {
 
   # conf cache
-  #if !is_ip_address($line_receiver_interface) {
-  #  fail('$line_receiver_interface must be an IPv4 address')
-  #}
-  #if !is_numeric($line_receiver_port) {
-  #  fail ('$line_receiver_port must be an integer')
-  #}
+  if !is_ip_address($line_receiver_interface) {
+    fail('$line_receiver_interface must be an IPv4 address')
+  }
+  if !is_numeric($line_receiver_port) {
+    fail ('$line_receiver_port must be an integer')
+  }
   validate_bool($enable_udp_listener)
-  #if !is_ip_address($udp_receiver_interface) {
-  #  fail('$udp_receiver_interface must be an IPv4 address')
-  #}
-  #if !is_numeric($udp_receiver_port) {
-  #  fail('$udp_receiver_port must be an integer')
-  #}
-  #validate_re($cache_write_strategy, '^(max|sorted|naive)$',
-  #            fail('Please chose Max, Sorted or Naive for Write Strategy'))
+  if !is_ip_address($udp_receiver_interface) {
+    fail('$udp_receiver_interface must be an IPv4 address')
+  }
+  if !is_numeric($udp_receiver_port) {
+    fail('$udp_receiver_port must be an integer')
+  }
+  validate_re($cache_write_strategy, '^(max|sorted|naive)$',
+              'Please chose Max, Sorted or Naive for Write Strategy')
   validate_bool($use_insecure_unpickler)
   validate_bool($use_whitelist)
-  #if !is_ip_address($pickle_receiver_interface) {
-  #  fail('$pickle_receiver_interface must be an IPv4 address')
-  #}
-  #if !is_numeric($pickle_receiver_port) {
-  #  fail('$pickle_receiver_port must be an integer')
-  #}
-  #if !is_ip_address($cache_query_interface) {
-  #  fail('$cache_query_interface must be an IPv4 address')
-  #}
-  #if !is_numeric($cache_query_port) {
-  #  fail('$cache_query_port must be an integer')
-  #}
-  #if !is_numeric($cache_count) {
-  #  fail('$cache_count must be an integer')
-  #}
+  if !is_ip_address($pickle_receiver_interface) {
+    fail('$pickle_receiver_interface must be an IPv4 address')
+  }
+  if !is_numeric($pickle_receiver_port) {
+    fail('$pickle_receiver_port must be an integer')
+  }
+  if !is_ip_address($cache_query_interface) {
+    fail('$cache_query_interface must be an IPv4 address')
+  }
+  if !is_numeric($cache_query_port) {
+    fail('$cache_query_port must be an integer')
+  }
+  if !is_numeric($cache_count) {
+    fail('$cache_count must be an integer')
+  }
 
   concat::fragment { "conf/carbon.conf-cache-${title}":
     target  => "${graphite::install_dir}/conf/carbon.conf",

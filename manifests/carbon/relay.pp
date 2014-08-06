@@ -42,32 +42,32 @@ define graphite::carbon::relay(
     $port_modifier              = true,
   ) {
 
-  #if !is_ip_address($line_receiver_interface) {
-  #  fail('Please enter a proper IPv4 address')
-  #}
-  #if !is_numeric($line_receiver_port) {
-  #  fail ('$line_receiver_port must be an integer')
-  #}
-  #if !is_ip_address($pickle_receiver_interface) {
-  #  fail('Please enter a proper IPv4 address')
-  #}
-  #if !is_numeric($pickle_receiver_port) {
-  #  fail('$pickle_receiver_port must be an integer')
-  #}
+  if !is_ip_address($line_receiver_interface) {
+    fail('Please enter a proper IPv4 address')
+  }
+  if !is_numeric($line_receiver_port) {
+    fail ('$line_receiver_port must be an integer')
+  }
+  if !is_ip_address($pickle_receiver_interface) {
+    fail('Please enter a proper IPv4 address')
+  }
+  if !is_numeric($pickle_receiver_port) {
+    fail('$pickle_receiver_port must be an integer')
+  }
   validate_array($destinations)
   validate_re($relay_method, '^(relay-rules|consistent-hashing)$')
-  #if !is_numeric($replication_factor){
-  #  fail('$replication_factor must be an integer')
-  #}
-  #if !is_numeric($max_datapoints_per_message) {
-  #  fail('$max_datapoints_per_message must be an integer')
-  #}
-  #if !is_numeric($max_queue_size) {
-  #  fail('$max_queue_size must be an integer')
-  #}
-  #if !is_numeric($cache_count) {
-  #  fail('$cache_count must be an integer')
-  #}
+  if !is_numeric($replication_factor){
+    fail('$replication_factor must be an integer')
+  }
+  if !is_numeric($max_datapoints_per_message) {
+    fail('$max_datapoints_per_message must be an integer')
+  }
+  if !is_numeric($max_queue_size) {
+    fail('$max_queue_size must be an integer')
+  }
+  if !is_numeric($cache_count) {
+    fail('$cache_count must be an integer')
+  }
 
   validate_bool($use_flow_control)
   validate_bool($use_whitelist)
