@@ -312,18 +312,11 @@ class graphite (
   validate_bool($enable_carbon_cache)
   validate_bool($enable_carbon_relay)
   validate_bool($enable_webapp)
-  validate_re($web_server, '^(apache|nginx|wsgionly|none)$') #,              fail('The only supported web servers are \'apache\', \'nginx\',  \'wsgionly\' and \'none\''))
+  validate_re($web_server, '^(apache|nginx|wsgionly|none)$')
   validate_string($install_dir)
   validate_bool($use_packages)
 
-  # The anchor resources allow the end user to establish relationships
-  # to the "main" class and preserve the relationship to the
-  # implementation classes through a transitive relationship to
-  # the composite class.
-  # https://projects.puppetlabs.com/projects/puppet/wiki/Anchor_Pattern
-  anchor { 'graphite::begin':}->
-  class { 'graphite::install':}~>
-  class { 'graphite::config':}->
-  anchor { 'graphite::end':}
+  class { 'graphite::install':}->
+  class { 'graphite::config':}
 
 }
