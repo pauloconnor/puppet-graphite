@@ -41,8 +41,8 @@ define graphite::carbon::cache (
   if !is_ip_address($query_interface) {
     fail("$query_interface must be an IPv4 address - ${query_interface}")
   }
-  if !is_numeric($cache_query_port) {
-    fail('$cache_query_port must be an integer')
+  if !is_numeric($query_port) {
+    fail('$query_port must be an integer')
   }
   if !is_numeric($cache_count) {
     fail('$cache_count must be an integer')
