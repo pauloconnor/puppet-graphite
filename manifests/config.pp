@@ -151,16 +151,16 @@ class graphite::config inherits graphite::params {
   }
 
   # Template uses $global_options, $defaults_options
-  concat::fragment { '10-relay-head':
+  concat::fragment { '20-relay-head':
     target  => "${graphite::install_dir}/conf/carbon.conf",
-    order   => '10',
+    order   => '20',
     content => template('graphite/opt/graphite/conf/carbon/relay-head.conf.erb'),
   }
 
   # Template uses $global_options, $defaults_options
-  concat::fragment { '20-relay-head':
+  concat::fragment { '30-aggregator-head':
     target  => "${graphite::install_dir}/conf/carbon.conf",
-    order   => '20',
+    order   => '30',
     content => template('graphite/opt/graphite/conf/carbon/aggregator-head.conf.erb'),
   }
 
