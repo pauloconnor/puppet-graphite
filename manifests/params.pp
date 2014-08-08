@@ -31,9 +31,6 @@ class graphite::params {
   $install_dir                      = $graphite::install_dir
   $user                            = 'www-data'
   $group                           = 'www-data'
-  $max_cache_size                  = inf
-  $max_updates_per_second          = 50000
-  $max_creates_per_minute          = 50000
   $carbon_metric_interval          = 60
   $timezone                        = 'UTC'
   $enable_carbon_relay             = true
@@ -61,6 +58,9 @@ class graphite::params {
   $cache_whisper_autoflush        = False
   $cache_whisper_fallocate_create = True
   $cache_whisper_sparse_create    = True
+  $cache_max_cache_size           = inf
+  $cache_max_updates_per_second   = 50000
+  $cache_max_creates_per_minute   = 50000
 
   $cache_line_receiver_interface   = $::ipaddress
   $cache_line_receiver_port        = 2003
