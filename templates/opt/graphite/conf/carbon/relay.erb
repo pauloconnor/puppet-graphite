@@ -1,11 +1,11 @@
-<%- 
+<%-
   destinations = ''
+  port_addition = @title.to_i * 10
   if @to_cache == true
     count = 0
     host, port = @destinations[0].to_s.split(':')
-    port_addition = $title * 10
     while count < @cache_count.to_i
-      new_port = port.to_i + port_addition
+      new_port = port.to_i + (port_addition * count)
       destinations = "#{destinations}, #{host}:#{new_port}:#{count}"
       count += 1
     end
@@ -13,17 +13,17 @@
     @destinations.each do | destination |
       host, port = destination.to_s.split(':')
       port = port.to_i + port_addition
-      destinations = "#{destinations},#{host}:${port}"
+      destinations = "#{destinations},#{host}:#{port}"
     end
-  end 
+  end
   # chomp first character, which is a ,
-  destinations[0] = '' 
+  destinations[0] = ''
   %>
 [relay:<%= @title %>]
 LINE_RECEIVER_INTERFACE    = <%= @line_receiver_interface %>
-LINE_RECEIVER_PORT         = <%= @line_receiver_port.to_i + @port_addition.to_i %>
+LINE_RECEIVER_PORT         = <%= @line_receiver_port.to_i + port_addition.to_i %>
 PICKLE_RECEIVER_INTERFACE  = <%= @pickle_receiver_interface %>
-PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port.to_i + @port_addition.to_i %>
+PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port.to_i + port_addition.to_i %>
 DESTINATIONS               = <%= destinations %>
 RELAY_METHOD               = <%= @relay_method %>
 REPLICATION_FACTOR         = <%= @replication_factor %>
@@ -31,4 +31,3 @@ MAX_DATAPOINTS_PER_MESSAGE = <%= @max_datapoints_per_message %>
 MAX_QUEUE_SIZE             = <%= @max_queue_size %>
 USE_FLOW_CONTROL           = <%= @use_flow_control %>
 USE_WHITELIST              = <%= @use_whitelist %>
-
