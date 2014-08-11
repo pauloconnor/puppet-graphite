@@ -5,7 +5,7 @@
     count = 0
     host, port = @destinations[0].to_s.split(':')
     while count < @cache_count.to_i
-      new_port = port.to_i + (port_addition * count)
+      new_port = port.to_i + (count * 10)
       destinations = "#{destinations}, #{host}:#{new_port}:#{count}"
       count += 1
     end
