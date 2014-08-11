@@ -3,14 +3,17 @@
   if @to_cache == true
     count = 0
     host, port = @destinations[0].to_s.split(':')
+    port_addition = $title * 10
     while count < @cache_count.to_i
-      new_port = port.to_i + @port_addition
+      new_port = port.to_i + port_addition
       destinations = "#{destinations}, #{host}:#{new_port}:#{count}"
       count += 1
     end
   else
     @destinations.each do | destination |
-      destinations = "#{destinations},#{destination}"
+      host, port = destination.to_s.split(':')
+      port = port.to_i + port_addition
+      destinations = "#{destinations},#{host}:${port}"
     end
   end 
   # chomp first character, which is a ,

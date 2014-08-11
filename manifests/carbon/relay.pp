@@ -74,10 +74,6 @@ define graphite::carbon::relay(
   validate_bool($to_cache)
   validate_bool($port_modifier)
 
-  if $port_modifier {
-    $port_addition = $title * 10
-  }
-
   concat::fragment { "conf/carbon.conf-relay-${title}":
     target  => "${graphite::install_dir}/conf/carbon.conf",
     content => template('graphite/opt/graphite/conf/carbon/relay.erb'),
