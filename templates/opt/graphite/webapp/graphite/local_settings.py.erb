@@ -193,7 +193,7 @@ web_cluster_hosts = ""
 relay_destinations = scope.lookupvar('graphite::relay_destinations')
 relay_destinations.each do | destination |
     destination.split(':') 
-    carbonlink_hosts = "#{web_cluster_hosts},\"#{destination[0}:80\""
+    carbonlink_hosts = "#{web_cluster_hosts},\"#{destination[0]}:80\""
 end
 carbonlink_hosts[0] = ''
 %>
@@ -238,7 +238,7 @@ relay_destinations.each do | destination |
     cc = 0
     while cc < cache['count'].to_i
         query_port = query_port.to_i + (cc * 10)
-        carbonlink_hosts = "#{carbonlink_hosts},\"#{destination[0}:#{query_port}:#{cc}\""
+        carbonlink_hosts = "#{carbonlink_hosts},\"#{destination[0]}:#{query_port}:#{cc}\""
         cc += 1 
     end 
     carbonlink_hosts[0] = ''
