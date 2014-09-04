@@ -197,7 +197,7 @@ relay_destinations.each do | destination |
 end
 web_cluster_hosts[0] = ''
 %>
-CLUSTER_SERVERS = [ <%= scope.lookupvar('graphite::webapp_cluster_servers') %> ]
+CLUSTER_SERVERS = [ <%= web_cluster_hosts %> ]
 
 REMOTE_STORE_FETCH_TIMEOUT = <%= scope.lookupvar('graphite::webapp_cluster_fetch_timeout') %>
 REMOTE_STORE_FIND_TIMEOUT = <%= scope.lookupvar('graphite::webapp_cluster_find_timeout') %>
