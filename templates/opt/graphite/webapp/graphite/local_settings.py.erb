@@ -227,7 +227,7 @@ relay_destinations = scope.lookupvar('graphite::relay_destinations')
 relay_destinations.each do | destination |
     destination.split(':') 
     cc = 0
-    while cc < cache['count'].to_i
+    while cc < cache_count.to_i
         query_port = query_port.to_i + (cc * 10)
         carbonlink_hosts = "#{carbonlink_hosts},\"#{destination[0]}:#{query_port}:#{cc}\""
         cc += 1 
