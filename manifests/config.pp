@@ -165,13 +165,13 @@ class graphite::config inherits graphite::params {
   }
 
   logrotate::rule { 'carbon_logs':
-    path         => "${graphite::storage_dir}/logs/carbon-*",
+    path         => "${graphite::storage_dir}/log/carbon-*",
     rotate       => 5,
     rotate_every => 'day',
   }
 
   logrotate::rule { 'webapp_logs':
-    path          => "${graphite::storage_dir}/logs/webapp",
+    path          => "${graphite::storage_dir}/log/webapp",
     rotate        => 5,
     rotate_every  => 'day',
   }
