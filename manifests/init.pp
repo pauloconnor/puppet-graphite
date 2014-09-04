@@ -306,7 +306,7 @@ class graphite (
   $webapp_cluster_cache_duration  = 60,
   $use_remote_user_auth           = $graphite::params::use_remote_user_auth,
   $relay_list                     = [],
-  $relay_destinations             = [],
+  $relay_destinations             = [127.0.0.1:2003],
   $cache_count                    = 1,
   $query_port                     = 7002,
 ) inherits graphite::params {
