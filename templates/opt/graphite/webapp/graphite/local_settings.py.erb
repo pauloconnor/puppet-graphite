@@ -193,9 +193,9 @@ web_cluster_hosts = ""
 relay_destinations = scope.lookupvar('graphite::relay_destinations')
 relay_destinations.each do | destination |
     destination.split(':') 
-    carbonlink_hosts = "#{web_cluster_hosts},\"#{destination[0]}:80\""
+    web_cluster_hosts = "#{web_cluster_hosts},\"#{destination[0]}:80\""
 end
-carbonlink_hosts[0] = ''
+web_cluster_hosts[0] = ''
 %>
 CLUSTER_SERVERS = [ <%= scope.lookupvar('graphite::webapp_cluster_servers') %> ]
 
