@@ -16,7 +16,7 @@ USE_FLOW_CONTROL         = <%= scope.lookupvar('graphite::params::cache_use_flow
 LOG_UPDATES              = <%= scope.lookupvar('graphite::params::cache_log_updates') %>
 LOG_CACHE_HITS           = <%= scope.lookupvar('graphite::params::cache_log_cache_hits') %>
 LOG_CACHE_QUEUE_SORTS    = <%= scope.lookupvar('graphite::params::cache_log_cache_queue_sorts') %>
-CACHE_WRITE_STRATEGY     = <%= scope.lookupvar('graphite::params::cache_cache_write_strategy') %>
+CACHE_WRITE_STRATEGY     = <%= scope.lookupvar('graphite::params::cache_write_strategy') %>
 WHISPER_AUTOFLUSH        = <%= scope.lookupvar('graphite::params::cache_whisper_autoflush') %>
 WHISPER_FALLOCATE_CREATE = <%= scope.lookupvar('graphite::params::cache_whisper_fallocate_create') %>
 WHISPER_SPARSE_CREATE    = <%= scope.lookupvar('graphite::params::cache_whisper_sparse_create') %>

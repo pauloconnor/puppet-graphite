@@ -303,6 +303,7 @@ class graphite (
   $use_remote_user_auth      = $graphite::params::use_remote_user_auth,
   $relay_list                = [],
   $cache_count               = 1,
+  $query_port                = 7002,
 ) inherits graphite::params {
   # Validation of input variables.
   # TODO - validate all the things

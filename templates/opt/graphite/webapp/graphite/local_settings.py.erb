@@ -188,7 +188,15 @@ DATABASES = {
 # remote server in the cluster. These servers must each have local access to
 # metric data. Note that the first server to return a match for a query will be
 # used.
-<% if scope.lookupvar('graphite::webapp_cluster_enable') %>
+<% 
+web_cluster_hosts = ""
+relay_destinations = scope.lookupvar('graphite::relay_destinations')
+relay_destinations.each do | destination |
+    destination.split(':') 
+    carbonlink_hosts = "#{web_cluster_hosts},\"#{destination[0}:80\""
+end
+carbonlink_hosts[0] = ''
+%>
 CLUSTER_SERVERS = <%= scope.lookupvar('graphite::webapp_cluster_servers') %>
 
 REMOTE_STORE_FETCH_TIMEOUT = <%= scope.lookupvar('graphite::webapp_cluster_fetch_timeout') %>
@@ -222,11 +230,15 @@ REMOTE_FIND_CACHE_DURATION = <%= scope.lookupvar('graphite::webapp_cluster_cache
 # You *should* use 127.0.0.1 here in most cases
 <% 
 carbonlink_hosts = ""
-scope.lookupvar('graphite::caches').each do | name, cache | 
+cache_count = scope.lookupvar('graphite::cache_count')
+query_port = scope.lookupvar('graphite::query_port')
+relay_destinations = scope.lookupvar('graphite::relay_destinations')
+relay_destinations.each do | destination |
+    destination.split(':') 
     cc = 0
     while cc < cache['count'].to_i
-        query_port = cache['query_port'].to_i + (cc * 10)
-        carbonlink_hosts = "#{carbonlink_hosts},\"#{cache['query_interface']}:#{query_port}:#{cc}\""
+        query_port = query_port.to_i + (cc * 10)
+        carbonlink_hosts = "#{carbonlink_hosts},\"#{destination[0}:#{query_port}:#{cc}\""
         cc += 1 
     end 
     carbonlink_hosts[0] = ''
