@@ -232,8 +232,8 @@ relay_destinations.each do | destination |
         carbonlink_hosts = "#{carbonlink_hosts},\"#{host[0]}:#{query_port}:#{cc}\""
         cc += 1 
     end 
-    carbonlink_hosts[0] = ''
 end
+carbonlink_hosts[0] = ''
 %>
 CARBONLINK_HOSTS = [<%= carbonlink_hosts %>]
 #CARBONLINK_TIMEOUT = 1.0
