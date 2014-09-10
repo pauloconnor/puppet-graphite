@@ -38,6 +38,7 @@ class graphite::params {
   $enable_webapp                   = true
   $use_packages                    = true
   $memcache_hosts                  = ['127.0.0.1']
+  $memcache_port                   = 11211
 
   $amqp_enable                      = False
   $amqp_verbose                     = False

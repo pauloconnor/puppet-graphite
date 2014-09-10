@@ -290,6 +290,7 @@ class graphite (
   $webapp_secret_key              = $graphite::params::webapp_secret_key,
   $use_packages                   = $graphite::params::use_packages,
   $memcache_hosts                 = $graphite::params::memcache_hosts,
+  $memcache_port                  = $graphite::params::memcache_port,
   $storage_schemas                = $graphite::params::storage_schemas,
   $storage_aggregation_rules      = $graphite::params::storage_aggregation_rules,
   $aggregator_rules               = $graphite::params::aggregator_rules,
