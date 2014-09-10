@@ -42,6 +42,12 @@ class graphite::config inherits graphite::params {
         group   => $graphite::group,
         mode    => '0755',
         require => Exec['Chown graphite for web user'];
+      "${graphite::storage_dir}/rrd":
+        ensure  => directory,
+        owner   => $graphite::params::web_user,
+        group   => $graphite::group,
+        mode    => '0755',
+        require => Exec['Chown graphite for web user'];
       "${graphite::storage_dir}/log/carbon-cache":
         ensure  => directory,
         owner   => $graphite::params::web_user,
