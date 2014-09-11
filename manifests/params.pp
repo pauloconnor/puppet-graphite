@@ -28,7 +28,6 @@ class graphite::params {
   $carbon_dl_loc                   = "${build_dir}/carbon-${::graphite::params::carbonVersion}.tar.gz"
 
   $nginxconf_dir                   = '/etc/nginx/sites-available'
-  $install_dir                      = $graphite::install_dir
   $user                            = 'www-data'
   $group                           = 'www-data'
   $carbon_metric_interval          = 60
