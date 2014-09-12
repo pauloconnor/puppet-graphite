@@ -28,13 +28,15 @@ class graphite::params {
   $carbon_dl_loc                   = "${build_dir}/carbon-${::graphite::params::carbonVersion}.tar.gz"
 
   $nginxconf_dir                   = '/etc/nginx/sites-available'
-  $install_dir                      = $graphite::install_dir
+  $install_dir                     = '/opt/graphite',
+  $storage_dir                     = '/opt/graphite/storage',
   $user                            = 'www-data'
   $group                           = 'www-data'
   $carbon_metric_interval          = 60
   $timezone                        = 'UTC'
   $enable_carbon_relay             = true
   $enable_carbon_cache             = true
+  $enable_carbon_aggregator        = false
   $enable_webapp                   = true
   $use_packages                    = true
   $memcache_hosts                  = ['127.0.0.1']
