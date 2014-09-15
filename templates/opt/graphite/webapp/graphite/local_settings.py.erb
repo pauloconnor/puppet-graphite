@@ -99,13 +99,13 @@ INDEX_FILE = '<%= scope.lookupvar('graphite::storage_dir') %>/index'  # Search i
 #####################################
 # Authentication Configuration #
 #####################################
-<% if scope.lookupvar('graphite::gr_use_ldap') %>
+<% if scope.lookupvar('graphite::use_ldap') %>
 USE_LDAP_AUTH = True
-LDAP_URI = "<%= scope.lookupvar('graphite::gr_ldap_uri') %>"
-LDAP_SEARCH_BASE = "<%= scope.lookupvar('graphite::gr_ldap_search_base') %>"
-LDAP_BASE_USER = "<%= scope.lookupvar('graphite::gr_ldap_base_user') %>"
-LDAP_BASE_PASS = "<%= scope.lookupvar('graphite::gr_ldap_base_pass') %>"
-LDAP_USER_QUERY = "<%= scope.lookupvar('graphite::gr_ldap_user_query') %>"
+LDAP_URI = "<%= scope.lookupvar('graphite::ldap_uri') %>"
+LDAP_SEARCH_BASE = "<%= scope.lookupvar('graphite::ldap_search_base') %>"
+LDAP_BASE_USER = "<%= scope.lookupvar('graphite::ldap_base_user') %>"
+LDAP_BASE_PASS = "<%= scope.lookupvar('graphite::ldap_base_pass') %>"
+LDAP_USER_QUERY = "<%= scope.lookupvar('graphite::ldap_user_query') %>"
 <% else %>
 ## LDAP / ActiveDirectory authentication setup
 #USE_LDAP_AUTH = True
@@ -249,7 +249,7 @@ CARBONLINK_HOSTS = [<%= carbonlink_hosts %>]
 # NOTE - this has been moved to the bottom to gain access to app_settings.
 <%-
 if scope.lookupvar('graphite::use_remote_user_auth') == 'True'
-	if scope.lookupvar('graphite::gr_remote_user_header_name') != :undef
+	if scope.lookupvar('graphite::webapp_remote_user_header_name') != :undef
 -%>
 # NOTE - This puppet module handles this slightly differently to the default Django approach
 # with local_settings.py / settings.py
@@ -275,7 +275,7 @@ USE_REMOTE_USER_AUTHENTICATION = False
 end
 -%>
 
-<% unless scope.lookupvar('graphite::gr_django_1_4_or_less') %>
+<% unless scope.lookupvar('graphite::django_1_4_or_less') %>
 # Configure static URL prefix for Django admin pages
 STATIC_URL = '/static/'
 <% end %>

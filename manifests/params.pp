@@ -52,6 +52,7 @@ class graphite::params {
   $amqp_exchange                    = 'graphite'
   $amqp_metric_name_in_body         = False
 
+  $cache_user                     = 'root'
   $cache_enable_logrotation       = False
   $cache_log_listener_connections = True
   $cache_use_flow_control         = True
@@ -115,12 +116,13 @@ class graphite::params {
   $webapp_manage_ca_certificate   = true
   $webapp_use_remote_user_auth    = 'False'
   $webapp_remote_user_header_name = undef
+  $web_server_package_require     = undef
   $web_server                     = 'apache'
   $web_servername                 = $::fqdn
   $web_cors_allow_from_all        = true
   $web_server_port                = 80
   $use_remote_user_auth           = false
-
+  $use_ldap                       = false
   $storage_schemas           = [
     {
       name       => 'carbon',

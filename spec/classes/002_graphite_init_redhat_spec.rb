@@ -1,1 +1,0 @@
-002_graphite_init_redhat_spec.rb
