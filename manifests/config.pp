@@ -76,7 +76,7 @@ class graphite::config inherits graphite::params {
       require => $web_server_package_require;
   }
 
-  if $::graphite::gr_remote_user_header_name != undef {
+  if $graphite::webapp_remote_user_header_name != undef {
     file {
       "${graphite::install_dir}/webapp/graphite/custom_auth.py":
         ensure  => file,
@@ -90,7 +90,7 @@ class graphite::config inherits graphite::params {
 
 
   # configure carbon engines
-  if $graphite::enable_carbon_relay and $graphite::gr_enable_carbon_aggregator {
+  if $graphite::enable_carbon_relay and $graphite::enable_carbon_aggregator {
     $notify_services = [
       Service['carbon-aggregator'],
       Service['carbon-relay'],
@@ -163,11 +163,13 @@ class graphite::config inherits graphite::params {
     content => template('graphite/opt/graphite/conf/carbon/relay-head.conf.erb'),
   }
 
-  # Template uses $global_options, $defaults_options
-  concat::fragment { '30-aggregator-head':
-    target  => "${graphite::install_dir}/conf/carbon.conf",
-    order   => '30',
-    content => template('graphite/opt/graphite/conf/carbon/aggregator-head.conf.erb'),
+  if $graphite::enable_carbon_aggregator {
+    # Template uses $global_options, $defaults_options
+    concat::fragment { '30-aggregator-head':
+      target  => "${graphite::install_dir}/conf/carbon.conf",
+      order   => '30',
+      content => template('graphite/opt/graphite/conf/carbon/aggregator-head.conf.erb'),
+    }
   }
 
   logrotate::rule { 'carbon_logs':
