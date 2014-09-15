@@ -52,7 +52,7 @@ class graphite::params {
   $amqp_exchange                    = 'graphite'
   $amqp_metric_name_in_body         = False
 
-  $cache_user                     = 'root'
+  $cache_user                     = undef
   $cache_enable_logrotation       = False
   $cache_log_listener_connections = True
   $cache_use_flow_control         = True
