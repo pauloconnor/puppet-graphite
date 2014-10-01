@@ -46,6 +46,7 @@ class graphite::config inherits graphite::params {
    exec { 'Set db owner':
     command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::storage_dir}/graphite.db",
     cwd         => "${graphite::storage_dir}/",
+    refreshonly => true,
   }
 
   # change access permissions for carbon-cache to align with gr_user
