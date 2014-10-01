@@ -79,15 +79,13 @@ class graphite::config inherits graphite::params {
       owner   => $graphite::user,
       group   => $graphite::group,
       mode    => '0644',
-      content => template('graphite/opt/graphite/webapp/graphite/local_settings.py.erb'),
-      require => $web_server_package_require;
+      content => template('graphite/opt/graphite/webapp/graphite/local_settings.py.erb');
     "${graphite::install_dir}/conf/graphite.wsgi":
       ensure  => file,
       owner   => $graphite::user,
       group   => $graphite::group,
       mode    => '0644',
-      content => template('graphite/opt/graphite/conf/graphite.wsgi.erb'),
-      require => $web_server_package_require;
+      content => template('graphite/opt/graphite/conf/graphite.wsgi.erb');
   }
 
   if $graphite::webapp_remote_user_header_name != undef {
