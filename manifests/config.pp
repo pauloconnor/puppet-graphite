@@ -24,18 +24,18 @@ class graphite::config inherits graphite::params {
 
   # change access permissions for web server
 
-  exec { 'Chown graphite for web user':
-    command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::install_dir}",
-    cwd         => "${graphite::install_dir}/",
-    refreshonly => true,
-    require     => $web_server_package_require,
-  }->
-  exec { 'Chown graphite storage for web user':
-    command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::storage_dir}",
-    cwd         => "${graphite::storage_dir}/",
-    refreshonly => true,
-    require     => $web_server_package_require,
-  }
+#  exec { 'Chown graphite for web user':
+#    command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::install_dir}",
+#    cwd         => "${graphite::install_dir}/",
+#    refreshonly => true,
+#    require     => $web_server_package_require,
+#  }->
+#  exec { 'Chown graphite storage for web user':
+#    command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::storage_dir}",
+#    cwd         => "${graphite::storage_dir}/",
+#    refreshonly => true,
+#    require     => $web_server_package_require,
+#  }
 
   exec { 'Initial django db creation':
     creates     => "${graphite::storage_dir}/graphite.db",
@@ -46,7 +46,6 @@ class graphite::config inherits graphite::params {
    exec { 'Set db owner':
     command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::storage_dir}/graphite.db",
     cwd         => "${graphite::storage_dir}/",
-    refreshonly => true,
   }
 
   # change access permissions for carbon-cache to align with gr_user
@@ -60,6 +59,13 @@ class graphite::config inherits graphite::params {
     "${graphite::storage_dir}/log/carbon-cache",
     "${graphite::storage_dir}/log/webapp" ]:
       ensure  => directory,
+      owner   => $graphite::user,
+      group   => $graphite::group,
+      mode    => '0755';
+  }
+
+    file { "${graphite::storage_dir}/index":
+      ensure  => file,
       owner   => $graphite::user,
       group   => $graphite::group,
       mode    => '0755';
