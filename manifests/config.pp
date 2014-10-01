@@ -29,6 +29,12 @@ class graphite::config inherits graphite::params {
     cwd         => "${graphite::install_dir}/",
     refreshonly => true,
     require     => $web_server_package_require,
+  }->
+  exec { 'Chown graphite storage for web user':
+    command     => "/bin/chown -R ${graphite::params::web_user}:${graphite::params::web_user} ${graphite::storage_dir}",
+    cwd         => "${graphite::storage_dir}/",
+    refreshonly => true,
+    require     => $web_server_package_require,
   }
 
   # change access permissions for carbon-cache to align with gr_user
@@ -49,6 +55,12 @@ class graphite::config inherits graphite::params {
         mode    => '0755',
         require => Exec['Chown graphite for web user'];
       "${graphite::storage_dir}/log/carbon-cache":
+        ensure  => directory,
+        owner   => $graphite::params::web_user,
+        group   => $graphite::group,
+        mode    => '0755',
+        require => Exec['Chown graphite for web user'];
+      "${graphite::storage_dir}/log/webapp":
         ensure  => directory,
         owner   => $graphite::params::web_user,
         group   => $graphite::group,
