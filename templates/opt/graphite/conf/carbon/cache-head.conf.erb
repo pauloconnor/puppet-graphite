@@ -7,7 +7,7 @@ LOG_DIR                  = <%= scope.lookupvar('graphite::storage_dir') %>/log/
 PID_DIR                  = <%= scope.lookupvar('graphite::storage_dir') %>/
 LOCAL_DATA_DIR           = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
 ENABLE_LOGROTATION       = <%= scope.lookupvar('graphite::params::cache_enable_logrotation') %>
-USER                     = <%= scope.lookupvar('graphite::params::cache_user') %>
+USER                     = <%= scope.lookupvar('graphite::user') %>
 MAX_CACHE_SIZE           = <%= scope.lookupvar('graphite::params::cache_max_cache_size') %>
 MAX_UPDATES_PER_SECOND   = <%= scope.lookupvar('graphite::params::cache_max_updates_per_second') %>
 MAX_CREATES_PER_MINUTE   = <%= scope.lookupvar('graphite::params::cache_max_creates_per_minute') %>
