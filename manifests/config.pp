@@ -37,6 +37,18 @@ class graphite::config inherits graphite::params {
     require     => $web_server_package_require,
   }
 
+  exec { 'Initial django db creation':
+    creates     => "${graphite::storage_dir}/graphite.db",
+    command     => '/usr/bin/python manage.py syncdb --noinput',
+    cwd         => "${graphite::install_dir}/webapp/graphite",
+    require     => File["${graphite::install_dir}/webapp/graphite/local_settings.py"],
+   }->
+   exec { 'Set db owner':
+    command     => "/bin/chown -R ${graphite::params::web_user}:${graphite::params::web_user} ${graphite::storage_dir}/graphite.db",
+    cwd         => "${graphite::storage_dir}/",
+    refreshonly => true,
+  }
+
   # change access permissions for carbon-cache to align with gr_user
   # (if different from web_user)
 
@@ -46,8 +58,7 @@ class graphite::config inherits graphite::params {
         ensure  => directory,
         owner   => $graphite::params::web_user,
         group   => $graphite::group,
-        mode    => '0755',
-        require => Exec['Chown graphite for web user'];
+        mode    => '0755';
       "${graphite::storage_dir}/whisper":
         ensure  => directory,
         owner   => $graphite::params::web_user,

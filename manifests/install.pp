@@ -21,11 +21,4 @@ class graphite::install(
   } else {
     include graphite::install::source
   }
-  
-  exec { 'Initial django db creation':
-    creates     => "${graphite::storage_dir}/graphite.db",
-    command     => '/usr/bin/python manage.py syncdb --noinput',
-    cwd         => "${graphite::install_dir}/webapp/graphite",
-    require     => File["${graphite::install_dir}/webapp/graphite/local_settings.py"],
-   }
 }

@@ -100,11 +100,4 @@ class graphite::install::source inherits graphite::params {
     command => "/bin/chown -R www-data:www-data ${graphite::storage_dir}",
     require => Exec['install_carbon'],
   }
-
-  exec { 'Initial django db creation':
-    creates     => "$graphite::storage_dir/graphite.db",
-    command     => 'python manage.py syncdb --noinput',
-    cwd         => "${graphite::install_dir}/webapp/graphite",
-    require     => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
-  }
 }
