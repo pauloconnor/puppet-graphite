@@ -42,6 +42,12 @@ class graphite::config inherits graphite::params {
 
   if $graphite::user != '' and $graphite::group != '' and $graphite::user != $graphite::params::web_user {
     file {
+      "${graphite::storage_dir}":
+        ensure  => directory,
+        owner   => $graphite::params::web_user,
+        group   => $graphite::group,
+        mode    => '0755',
+        require => Exec['Chown graphite for web user'];
       "${graphite::storage_dir}/whisper":
         ensure  => directory,
         owner   => $graphite::params::web_user,
