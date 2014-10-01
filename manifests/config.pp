@@ -56,6 +56,7 @@ class graphite::config inherits graphite::params {
     "${graphite::storage_dir}",
     "${graphite::storage_dir}/whisper",
     "${graphite::storage_dir}/rrd",
+    "${graphite::storage_dir}/log",
     "${graphite::storage_dir}/log/carbon-cache",
     "${graphite::storage_dir}/log/webapp" ]:
       ensure  => directory,

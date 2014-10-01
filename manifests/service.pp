@@ -10,5 +10,9 @@ class graphite::service {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
+    require    => [ File["${install_dir}/conf/carbon.conf"], 
+                    File["${install_dir}/conf/relay-rules.conf"],
+                    File["${install_dir}/conf/storage-schemas.conf"],
+                  ],
   }
 }
