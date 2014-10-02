@@ -154,7 +154,7 @@ class graphite::params {
     },
     '99_default_avg' => {
       pattern => '.*',
-      factor => '0.5',
+      factor => '0.0',
       method => 'average'
     }
   }
