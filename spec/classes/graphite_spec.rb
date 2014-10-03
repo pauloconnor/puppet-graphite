@@ -4,9 +4,9 @@ describe 'graphite' do
   context 'supported operating systems' do
     describe "graphite class without any parameters on Debian" do
       let(:params) {{ 
-        :graphiteVersion => 'present',
-        :carbonVersion => 'present',
-        :whisperVersion => 'present',
+        :graphite_version => 'present',
+        :carbon_version => 'present',
+        :whisper_version => 'present',
         }}
       let(:facts) {{
         :osfamily => 'Debian',

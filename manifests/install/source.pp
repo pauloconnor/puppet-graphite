@@ -41,7 +41,7 @@ class graphite::install::source inherits graphite::params {
   # whisper goes to the /usr/bin by default. No overrides possible
   exec { 'install_whisper':
     #creates     => '/usr/local/bin/whisper-info.py',
-    cwd         => "${graphite::build_dir}/whisper-${::graphite::whisperVersion}",
+    cwd         => "${graphite::build_dir}/whisper-${graphite::whisper_version}",
     command     => "/usr/bin/python setup.py install",
   }
 
@@ -59,7 +59,7 @@ class graphite::install::source inherits graphite::params {
   }->
   exec { 'install_graphite':
     #creates     => "${graphite::install_dir}/webapp",
-    cwd         => "${graphite::build_dir}/graphite-web-${::graphite::graphiteVersion}",
+    cwd         => "${graphite::build_dir}/graphite-web-${graphite::graphite_version}",
     command     => "/usr/bin/python setup.py install --prefix=${graphite::install_dir} --install-lib=${graphite::install_dir}/webapp",
   }
 
@@ -77,7 +77,7 @@ class graphite::install::source inherits graphite::params {
   }->
   exec { 'install_carbon':
     #creates     => "${::graphite::install_dir}/lib",
-    cwd         => "${graphite::build_dir}/carbon-${::graphite::carbonVersion}",
+    cwd         => "${graphite::build_dir}/carbon-${graphite::carbon_version}",
     command     => "/usr/bin/python setup.py install --prefix=${::graphite::install_dir} --install-lib=${::graphite::install_dir}/lib",
   }
 

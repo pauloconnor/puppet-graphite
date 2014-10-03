@@ -11,13 +11,13 @@ class graphite::install::package (
       )inherits graphite::params {
 
   package{'graphite-web':
-    ensure   => $graphite::graphiteVersion,
+    ensure   => $graphite::graphite_version,
   }->
   package{'carbon':
-    ensure   => $graphite::carbonVersion,
+    ensure   => $graphite::carbon_version,
   }->
   package{'whisper':
-    ensure   => $graphite::whisperVersion,
+    ensure   => $graphite::whisper_version,
   }->
 
   # workaround for unusual graphite install target:

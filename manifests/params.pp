@@ -14,18 +14,18 @@ class graphite::params {
   $django_tagging_ver              = '0.3.1'
   $twisted_ver                     = '11.1.0'
   $txamqp_ver                      = '0.4'
-  $graphiteVersion                 = '0.9.12'
-  $carbonVersion                   = '0.9.12'
-  $whisperVersion                  = '0.9.12'
+  $graphite_version                = '0.9.12'
+  $carbon_version                  = '0.9.12'
+  $whisper_version                 = '0.9.12'
 
-  $whisper_dl_url                  = "http://github.com/graphite-project/whisper/archive/${::graphite::params::whisperVersion}.tar.gz"
-  $whisper_dl_loc                  = "${build_dir}/whisper-${::graphite::params::whisperVersion}.tar.gz"
+  $whisper_dl_url                  = "http://github.com/graphite-project/whisper/archive/${graphite::whisper_version}.tar.gz"
+  $whisper_dl_loc                  = "${build_dir}/whisper-${graphite::whisper_version}.tar.gz"
 
-  $webapp_dl_url                   = "http://github.com/graphite-project/graphite-web/archive/${::graphite::params::graphiteVersion}.tar.gz"
-  $webapp_dl_loc                   = "${build_dir}/graphite-web-${::graphite::params::graphiteVersion}.tar.gz"
+  $webapp_dl_url                   = "http://github.com/graphite-project/graphite-web/archive/${graphite::graphite_version}.tar.gz"
+  $webapp_dl_loc                   = "${build_dir}/graphite-web-${graphite::graphite_version}.tar.gz"
 
-  $carbon_dl_url                   = "https://github.com/graphite-project/carbon/archive/${::graphite::params::carbonVersion}.tar.gz"
-  $carbon_dl_loc                   = "${build_dir}/carbon-${::graphite::params::carbonVersion}.tar.gz"
+  $carbon_dl_url                   = "https://github.com/graphite-project/carbon/archive/${graphite::carbon_version}.tar.gz"
+  $carbon_dl_loc                   = "${build_dir}/carbon-${graphite::carbon_version}.tar.gz"
 
   $nginxconf_dir                   = '/etc/nginx/sites-available'
   $install_dir                     = '/opt/graphite'
@@ -222,10 +222,10 @@ class graphite::params {
       $python_dev_pkg = 'python-dev'
 
       # see https://github.com/graphite-project/carbon/issues/86
-      $carbin_pip_hack_source = "/usr/lib/python2.7/dist-packages/carbon-${carbonVersion}-py2.7.egg-info"
-      $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbonVersion}-py2.7.egg-info"
-      $gweb_pip_hack_source = "/usr/lib/python2.7/dist-packages/graphite_web-${carbonVersion}-py2.7.egg-info"
-      $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${carbonVersion}-py2.7.egg-info"
+      $carbin_pip_hack_source = "/usr/lib/python2.7/dist-packages/carbon-${carbon_version}-py2.7.egg-info"
+      $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbon_version}-py2.7.egg-info"
+      $gweb_pip_hack_source = "/usr/lib/python2.7/dist-packages/graphite_web-${carbon_version}-py2.7.egg-info"
+      $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${carbon_version}-py2.7.egg-info"
 
       $graphitepkgs = [
         'python-cairo',
@@ -254,16 +254,16 @@ class graphite::params {
       # see https://github.com/graphite-project/carbon/issues/86
       case $::operatingsystemrelease {
         /^6\.\d+$/: {
-          $carbin_pip_hack_source = "/usr/lib/python2.6/site-packages/carbon-${carbonVersion}-py2.6.egg-info"
-          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbonVersion}-py2.6.egg-info"
-          $gweb_pip_hack_source = "/usr/lib/python2.6/site-packages/graphite_web-${graphiteVersion}-py2.6.egg-info"
-          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphiteVersion}-py2.6.egg-info"
+          $carbin_pip_hack_source = "/usr/lib/python2.6/site-packages/carbon-${carbon_version}-py2.6.egg-info"
+          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbon_version}-py2.6.egg-info"
+          $gweb_pip_hack_source = "/usr/lib/python2.6/site-packages/graphite_web-${graphite_version}-py2.6.egg-info"
+          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite_version}-py2.6.egg-info"
         }
         /^7\.\d+$/: {
-          $carbin_pip_hack_source = "/usr/lib/python2.7/site-packages/carbon-${carbonVersion}-py2.7.egg-info"
-          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbonVersion}-py2.7.egg-info"
-          $gweb_pip_hack_source = "/usr/lib/python2.7/site-packages/graphite_web-${graphiteVersion}-py2.7.egg-info"
-          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphiteVersion}-py2.7.egg-info"
+          $carbin_pip_hack_source = "/usr/lib/python2.7/site-packages/carbon-${carbon_version}-py2.7.egg-info"
+          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbon_version}-py2.7.egg-info"
+          $gweb_pip_hack_source = "/usr/lib/python2.7/site-packages/graphite_web-${graphite_version}-py2.7.egg-info"
+          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite_version}-py2.7.egg-info"
         }
         default: {fail('Unsupported Redhat release')}
       }
