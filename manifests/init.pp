@@ -49,7 +49,7 @@ class graphite (
   $webapp_remote_user_header_name = $graphite::params::webapp_remote_user_header_name,
   $django_1_4_or_less             = $graphite::params::django_1_4_or_less,
   $use_remote_user_auth           = $graphite::params::use_remote_user_auth,
-  $relay_list                     = [],
+  $relay_list                     = [ 00 ],
   $relay_destinations             = ['127.0.0.1:2003'],
   $cache_count                    = 1,
   $query_port                     = 7002,
