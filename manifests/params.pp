@@ -15,14 +15,14 @@ class graphite::params {
   $twisted_ver                     = '11.1.0'
   $txamqp_ver                      = '0.4'
 
-  $whisper_dl_url                  = "http://github.com/graphite-project/whisper/archive/${::graphite::whisper_version}.tar.gz"
-  $whisper_dl_loc                  = "${build_dir}/whisper-${::graphite::whisper_version}.tar.gz"
+  $whisper_dl_url                  = "http://github.com/graphite-project/whisper/archive/${graphite::whisper_version}.tar.gz"
+  $whisper_dl_loc                  = "${build_dir}/whisper-${graphite::whisper_version}.tar.gz"
 
-  $webapp_dl_url                   = "http://github.com/graphite-project/graphite-web/archive/${::graphite::graphite_version}.tar.gz"
-  $webapp_dl_loc                   = "${build_dir}/graphite-web-${::graphite::graphite_version}.tar.gz"
+  $webapp_dl_url                   = "http://github.com/graphite-project/graphite-web/archive/${graphite::graphite_version}.tar.gz"
+  $webapp_dl_loc                   = "${build_dir}/graphite-web-${graphite::graphite_version}.tar.gz"
 
-  $carbon_dl_url                   = "https://github.com/graphite-project/carbon/archive/${::graphite::carbon_version}.tar.gz"
-  $carbon_dl_loc                   = "${build_dir}/carbon-${::graphite::carbon_version}.tar.gz"
+  $carbon_dl_url                   = "https://github.com/graphite-project/carbon/archive/${graphite::carbon_version}.tar.gz"
+  $carbon_dl_loc                   = "${build_dir}/carbon-${graphite::carbon_version}.tar.gz"
 
   $nginxconf_dir                   = '/etc/nginx/sites-available'
   $install_dir                     = '/opt/graphite'
