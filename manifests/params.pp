@@ -120,18 +120,16 @@ class graphite::params {
   $web_server_port                = 80
   $use_remote_user_auth           = false
   $use_ldap                       = false
-  $storage_schemas           = [
-    {
-      name       => 'carbon',
+  $storage_schemas           = {
+    'carbon' => {
       pattern    => '^carbon\.',
       retentions => '1m:90d'
     },
-    {
-      name       => 'default',
+    'default' => {
       pattern    => '.*',
       retentions => '1s:30m,1m:1d,5m:2y'
     }
-  ]
+  }
 
   $storage_aggregation_rules  = {
     '00_min' => {

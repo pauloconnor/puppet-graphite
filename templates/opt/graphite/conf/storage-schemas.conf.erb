@@ -2,7 +2,8 @@
 
 # Schema definitions for whisper files. Entries are scanned in order,
 # and first match wins.
-<% scope.lookupvar('graphite::storage_schemas').each do |name, schema| %>
+<% storage_schemas = scope.lookupvar('graphite::storage_schemas')
+storage_schemas.each do |name, schema| %>
 [<%= name %>]
 pattern = <%= schema['pattern'] %>
 retentions = <%= schema['retentions'] %>
