@@ -55,6 +55,12 @@ class graphite (
   $query_port                     = 7002,
   $web_server_package_require     = $graphite::params::web_server_package_require,
   $use_ldap                       = $graphite::params::use_ldap,
+  $whisper_dl_url                 = "http://github.com/graphite-project/whisper/archive/${whisper_version}.tar.gz",
+  $whisper_dl_loc                 = "${build_dir}/whisper-${whisper_version}.tar.gz",
+  $webapp_dl_url                  = "http://github.com/graphite-project/graphite-web/archive/${graphite_version}.tar.gz",
+  $webapp_dl_loc                  = "${build_dir}/graphite-web-${graphite_version}.tar.gz",
+  $carbon_dl_url                  = "https://github.com/graphite-project/carbon/archive/${carbon_version}.tar.gz",
+  $carbon_dl_loc                  = "${build_dir}/carbon-${carbon_version}.tar.gz",
 ) inherits graphite::params {
   # Validation of input variables.
   # TODO - validate all the things

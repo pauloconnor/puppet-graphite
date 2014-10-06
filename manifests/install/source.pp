@@ -8,6 +8,15 @@
 # 
 class graphite::install::source inherits graphite::params {
 
+  $whisper_dl_url = "http://github.com/graphite-project/whisper/archive/${graphite::whisper_version}.tar.gz"
+  $whisper_dl_loc = "${build_dir}/whisper-${graphite::whisper_version}.tar.gz"
+  
+  $webapp_dl_url  = "http://github.com/graphite-project/graphite-web/archive/${graphite::graphite_version}.tar.gz"
+  $webapp_dl_loc  = "${build_dir}/graphite-web-${graphite::graphite_version}.tar.gz"
+  
+  $carbon_dl_url  = "https://github.com/graphite-project/carbon/archive/${graphite::carbon_version}.tar.gz"
+  $carbon_dl_loc  = "${build_dir}/carbon-${graphite::carbon_version}.tar.gz"
+
   file { $graphite::install_dir:
     ensure  => directory,
     owner   => 'www-data',
@@ -27,8 +36,8 @@ class graphite::install::source inherits graphite::params {
   }
 
   wget::fetch { 'wget_whisper':
-    source      => $::graphite::params::whisper_dl_url,
-    destination => $::graphite::params::whisper_dl_loc,
+    source      => $whisper_dl_url,
+    destination => $whisper_dl_loc,
     timeout     => 0,
     verbose     => false,
     require     => File[$::graphite::install_dir],
@@ -36,7 +45,7 @@ class graphite::install::source inherits graphite::params {
   exec { 'unpack_whisper':
     #creates     => $graphite::params::whisper_dl_loc,
     cwd         => $graphite::build_dir,
-    command     => "/bin/tar -xzvf ${::graphite::params::whisper_dl_loc}",
+    command     => "/bin/tar -xzvf ${whisper_dl_loc}",
   }->
   # whisper goes to the /usr/bin by default. No overrides possible
   exec { 'install_whisper':
@@ -55,7 +64,7 @@ class graphite::install::source inherits graphite::params {
   exec { 'unpack_graphite':
     #creates     => $graphite::params::webapp_dl_loc,
     cwd         => $graphite::build_dir,
-    command     => "/bin/tar -xzvf ${::graphite::params::webapp_dl_loc}",
+    command     => "/bin/tar -xzvf ${webapp_dl_loc}",
   }->
   exec { 'install_graphite':
     #creates     => "${graphite::install_dir}/webapp",
@@ -64,8 +73,8 @@ class graphite::install::source inherits graphite::params {
   }
 
   wget::fetch { 'wget_carbon':
-    source      => $::graphite::params::carbon_dl_url,
-    destination => $::graphite::params::carbon_dl_loc,
+    source      => $carbon_dl_url,
+    destination => $carbon_dl_loc,
     timeout     => 0,
     verbose     => false,
     require     => File[$::graphite::install_dir],
@@ -73,7 +82,7 @@ class graphite::install::source inherits graphite::params {
   exec { 'unpack_carbon':
     #creates     => $graphite::params::carbon_dl_loc,
     cwd         => $graphite::build_dir,
-    command     => "/bin/tar -xzvf ${::graphite::params::carbon_dl_loc}",
+    command     => "/bin/tar -xzvf ${carbon_dl_loc}",
   }->
   exec { 'install_carbon':
     #creates     => "${::graphite::install_dir}/lib",
