@@ -1,7 +1,9 @@
+# Class graphite::webserver::uwsgi
+# Install uswgi
 class graphite::webserver::uwsgi {
 
   package { 'uwsgi':
-    provider => 'pip',
     ensure   => 'installed',
+    provider => 'pip',
   }
 }

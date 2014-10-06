@@ -7,7 +7,7 @@
 #
 # None.
 #
-class graphite::webserver::apache (  
+class graphite::webserver::apache (
   $apache_port               = 80,
   $apache_port_https         = 443,
   $apache_24                 = false
@@ -17,7 +17,7 @@ class graphite::webserver::apache (
 
   # we need an apache with python support
 
-  case $osfamily {
+  case $::osfamily {
     'debian': {
       $apache_pkg = 'apache2'
       $apache_wsgi_pkg = 'libapache2-mod-wsgi'
@@ -30,10 +30,10 @@ class graphite::webserver::apache (
       $python_dev_pkg = 'python-dev'
 
       # see https://github.com/graphite-project/carbon/issues/86
-      $carbin_pip_hack_source = "/usr/lib/python2.7/dist-packages/carbon-${carbon_version}-py2.7.egg-info"
-      $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbon_version}-py2.7.egg-info"
-      $gweb_pip_hack_source = "/usr/lib/python2.7/dist-packages/graphite_web-${carbon_version}-py2.7.egg-info"
-      $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${carbon_version}-py2.7.egg-info"
+      $carbin_pip_hack_source = "/usr/lib/python2.7/dist-packages/carbon-${graphite::carbon_version}-py2.7.egg-info"
+      $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${graphite::carbon_version}-py2.7.egg-info"
+      $gweb_pip_hack_source = "/usr/lib/python2.7/dist-packages/graphite_web-${graphite::carbon_version}-py2.7.egg-info"
+      $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite::carbon_version}-py2.7.egg-info"
 
       $graphitepkgs = [
         'python-cairo',
@@ -60,18 +60,18 @@ class graphite::webserver::apache (
       $python_dev_pkg = 'python-devel'
 
       # see https://github.com/graphite-project/carbon/issues/86
-      case $operatingsystemrelease {
+      case $::operatingsystemrelease {
         /^6\.\d+$/: {
-          $carbin_pip_hack_source = "/usr/lib/python2.6/site-packages/carbon-${carbon_version}-py2.6.egg-info"
-          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbon_version}-py2.6.egg-info"
-          $gweb_pip_hack_source = "/usr/lib/python2.6/site-packages/graphite_web-${graphite_version}-py2.6.egg-info"
-          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite_version}-py2.6.egg-info"
+          $carbin_pip_hack_source = "/usr/lib/python2.6/site-packages/carbon-${graphite::carbon_version}-py2.6.egg-info"
+          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${graphite::carbon_version}-py2.6.egg-info"
+          $gweb_pip_hack_source = "/usr/lib/python2.6/site-packages/graphite_web-${graphite::graphite_version}-py2.6.egg-info"
+          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite::graphite_version}-py2.6.egg-info"
         }
         /^7\.\d+$/: {
-          $carbin_pip_hack_source = "/usr/lib/python2.7/site-packages/carbon-${carbon_version}-py2.7.egg-info"
-          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${carbon_version}-py2.7.egg-info"
-          $gweb_pip_hack_source = "/usr/lib/python2.7/site-packages/graphite_web-${graphite_version}-py2.7.egg-info"
-          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite_version}-py2.7.egg-info"
+          $carbin_pip_hack_source = "/usr/lib/python2.7/site-packages/carbon-${graphite::carbon_version}-py2.7.egg-info"
+          $carbin_pip_hack_target = "/opt/graphite/lib/carbon-${graphite::carbon_version}-py2.7.egg-info"
+          $gweb_pip_hack_source = "/usr/lib/python2.7/site-packages/graphite_web-${graphite::graphite_version}-py2.7.egg-info"
+          $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite::graphite_version}-py2.7.egg-info"
         }
         default: {fail('Unsupported Redhat release')}
       }
@@ -108,7 +108,7 @@ class graphite::webserver::apache (
       require => Package[$graphite::params::apache_pkg]
   }
 
-  case $osfamily {
+  case $::osfamily {
     debian: {
       # mod_header is disabled on Ubuntu by default,
       # but we need it for CORS headers
@@ -169,7 +169,7 @@ class graphite::webserver::apache (
       ];
   }
 
-  case $osfamily {
+  case $::osfamily {
     debian: {
       file { '/etc/apache2/sites-enabled/graphite.conf':
         ensure  => link,

@@ -1,3 +1,5 @@
+# Class graphite::amqp
+# Configure amqp
 class graphite::amqp (
   $enable               = 'False',
   $verbose              = 'False',

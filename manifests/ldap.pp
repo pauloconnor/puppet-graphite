@@ -1,3 +1,5 @@
+# Class graphite::ldap
+# Used to configure LDAP for authentication - NOT USED
 class graphite::ldap (
   $gr_use_ldap                  = false,
   $gr_ldap_uri                  = '',

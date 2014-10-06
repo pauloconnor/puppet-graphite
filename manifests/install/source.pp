@@ -6,20 +6,20 @@
 #
 # None.
 # 
-class graphite::install::source inherits graphite::params { 
+class graphite::install::source inherits graphite::params {
 
   file { $graphite::install_dir:
     ensure  => directory,
     owner   => 'www-data',
     group   => 'www-data',
-    mode    => 755,
+    mode    => '0755',
   }
 
   file { $graphite::storage_dir:
     ensure => directory,
     owner  => 'www-data',
     group  => 'www-data',
-    mode   => 755,
+    mode   => '0755',
     before => [
       Exec['install_carbon'],
       Exec['install_graphite'],
@@ -42,7 +42,7 @@ class graphite::install::source inherits graphite::params {
   exec { 'install_whisper':
     #creates     => '/usr/local/bin/whisper-info.py',
     cwd         => "${graphite::build_dir}/whisper-${graphite::whisper_version}",
-    command     => "/usr/bin/python setup.py install",
+    command     => '/usr/bin/python setup.py install',
   }
 
   wget::fetch { 'wget_graphite':

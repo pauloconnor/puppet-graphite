@@ -1,4 +1,6 @@
-define graphite::aggregator (
+# Define graphite::carbon::aggregator
+# Configure Aggregator - NOT WORKING
+define graphite::carbon::aggregator (
   $enable_carbon_aggregator  = false,
   $aggregator_line_interface = '0.0.0.0',
   $aggregator_line_port      = 2023,
@@ -12,7 +14,7 @@ define graphite::aggregator (
   $aggregator_max_intervals  = 5,
   $aggregator_rules          = { }
   ) {
- 
+
   # 'carbon-class-mem' => 'carbon.all.<class>.memUsage (60) = sum carbon.<class>.*.memUsage',
   #  'carbon-all-mem'   => 'carbon.all.memUsage (60) = sum carbon.*.*.memUsage',
   #  }

@@ -42,8 +42,8 @@ class graphite::config inherits graphite::params {
     command     => '/usr/bin/python manage.py syncdb --noinput',
     cwd         => "${graphite::install_dir}/webapp/graphite",
     require     => File["${graphite::install_dir}/webapp/graphite/local_settings.py"],
-   }->
-   exec { 'Set db owner':
+  }->
+  exec { 'Set db owner':
     command     => "/bin/chown -R ${graphite::user}:${graphite::group} ${graphite::storage_dir}/graphite.db",
     cwd         => "${graphite::storage_dir}/",
     refreshonly => true,
@@ -53,7 +53,7 @@ class graphite::config inherits graphite::params {
   # (if different from web_user)
 
   file { [
-    "${graphite::storage_dir}",
+    $graphite::storage_dir,
     "${graphite::storage_dir}/whisper",
     "${graphite::storage_dir}/rrd",
     "${graphite::storage_dir}/log",
@@ -97,7 +97,7 @@ class graphite::config inherits graphite::params {
         group   => $graphite::group,
         mode    => '0644',
         content => template('graphite/opt/graphite/webapp/graphite/custom_auth.py.erb'),
-        require => $web_server_package_require;
+        require => $graphite::web_server_package_require;
     }
   }
 

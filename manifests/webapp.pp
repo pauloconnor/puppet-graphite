@@ -1,4 +1,6 @@
-class graphite::webapp (  
+#Class graphite::webapp
+# Not used
+class graphite::webapp (
   $django_1_4_or_less             = false,
   $django_db_engine               = 'django.db.backends.sqlite3',
   $django_db_name                 = '/opt/graphite/storage/graphite.db',
