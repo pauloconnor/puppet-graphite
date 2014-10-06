@@ -15,6 +15,9 @@ describe 'graphite' do
       }}
 
       it { should compile }
+      it { should contain_class('graphite') }
+      it { should contain_class('graphite::config') }
+      it { should contain_file('/opt/graphite/conf/storage-schemas.conf') }
     end
   end
 end
