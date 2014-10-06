@@ -49,18 +49,12 @@ class graphite (
   $webapp_remote_user_header_name = $graphite::params::webapp_remote_user_header_name,
   $django_1_4_or_less             = $graphite::params::django_1_4_or_less,
   $use_remote_user_auth           = $graphite::params::use_remote_user_auth,
-  $relay_list                     = [ 00 ],
+  $relay_list                     = [ 00],
   $relay_destinations             = ['127.0.0.1:2003'],
   $cache_count                    = 1,
   $query_port                     = 7002,
   $web_server_package_require     = $graphite::params::web_server_package_require,
   $use_ldap                       = $graphite::params::use_ldap,
-  $whisper_dl_url                 = "http://github.com/graphite-project/whisper/archive/${whisper_version}.tar.gz",
-  $whisper_dl_loc                 = "${build_dir}/whisper-${whisper_version}.tar.gz",
-  $webapp_dl_url                  = "http://github.com/graphite-project/graphite-web/archive/${graphite_version}.tar.gz",
-  $webapp_dl_loc                  = "${build_dir}/graphite-web-${graphite_version}.tar.gz",
-  $carbon_dl_url                  = "https://github.com/graphite-project/carbon/archive/${carbon_version}.tar.gz",
-  $carbon_dl_loc                  = "${build_dir}/carbon-${carbon_version}.tar.gz",
 ) inherits graphite::params {
   # Validation of input variables.
   # TODO - validate all the things
