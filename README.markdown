@@ -1,3 +1,5 @@
+![Build status](https://travis-ci.org/pauloconnor/puppet-graphite.svg)
+
 ####Table of Contents
 
 1. [Overview](#overview)
