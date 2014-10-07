@@ -6,9 +6,13 @@
 #
 # None.
 #
-class graphite::install::package (
-      
-      )inherits graphite::params {
+class graphite::install::package {
+
+  # see https://github.com/graphite-project/carbon/issues/86
+  $carbon_pip_hack_source = "/usr/lib/python2.7/dist-packages/carbon-${graphite::carbon_version}-py2.7.egg-info"
+  $carbon_pip_hack_target = "/opt/graphite/lib/carbon-${graphite::carbon_version}-py2.7.egg-info"
+  $gweb_pip_hack_source = "/usr/lib/python2.7/dist-packages/graphite_web-${graphite::carbon_version}-py2.7.egg-info"
+  $gweb_pip_hack_target = "/opt/graphite/webapp/graphite_web-${graphite::carbon_version}-py2.7.egg-info"
 
   package{'graphite-web':
     ensure   => $graphite::graphite_version,
@@ -22,13 +26,13 @@ class graphite::install::package (
 
   # workaround for unusual graphite install target:
   # https://github.com/graphite-project/carbon/issues/86
-  file { $graphite::params::carbin_pip_hack_source :
+  file { $carbon_pip_hack_source :
     ensure => link,
-    target => $::graphite::params::carbin_pip_hack_target,
+    target => $carbon_pip_hack_target,
   }->
-  file { $graphite::params::gweb_pip_hack_source :
+  file { $gweb_pip_hack_source :
     ensure => link,
-    target => $::graphite::params::gweb_pip_hack_target,
+    target => $gweb_pip_hack_target,
   }
 
 }
