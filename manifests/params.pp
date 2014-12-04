@@ -68,8 +68,6 @@ class graphite::params {
   $cache_query_port                = 7002
   $cache_count                     = 1
 
-
-
   $relay_line_receiver_interface         = $::ipaddress
   $relay_line_receiver_port              = 2003
   $relay_pickle_receiver_interface       = $::ipaddress
@@ -84,6 +82,23 @@ class graphite::params {
   $relay_to_cache                        = false
   $relay_cache_count                     = 1
   $relay_carbon_metric_interval          = 60
+
+  $aggregator_line_receiver_interface    = '0.0.0.0'
+  $aggregator_line_receiver_port         = 2023
+  $aggregator_pickle_receiver_interface  = '0.0.0.0'
+  $aggregator_pickle_receiver_port       = 2024
+  $aggregator_log_listener_connections   = true
+  $aggregator_forward_all                = true
+  $aggregator_destinations               = [ '127.0.0.1:2004' ]
+  $aggregator_replication_factor         = 1
+  $aggregator_max_queue_size             = 10000
+  $aggregator_use_flow_control           = true
+  $aggregator_max_datapoints_per_message = 500
+  $aggregator_max_aggregation_intervals  = 5
+  $aggregator_write_back_frequency       = 0
+  $aggregator_use_whitelist              = false
+  $aggregator_carbon_metric_prefix       = 'carbon'
+  $aggregator_carbon_metric_interval     = 60
 
   $django_1_4_or_less             = false
   $django_db_engine               = 'django.db.backends.sqlite3'
