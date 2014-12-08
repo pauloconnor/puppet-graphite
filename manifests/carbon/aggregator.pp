@@ -33,7 +33,7 @@ define graphite::carbon::aggregator (
     fail ('$line_receiver_port must be an integer')
   }
   if !is_ip_address($pickle_receiver_interface) {
-    fail("\$pickle_receiver_interface must be an IPv4 address - ${udp_receiver_interface}")
+    fail("\$pickle_receiver_interface must be an IPv4 address - ${pickle_receiver_interface}")
   }
   if !is_numeric($pickle_receiver_port) {
     fail('$pickle_receiver_port must be an integer')
@@ -42,20 +42,26 @@ define graphite::carbon::aggregator (
   validate_bool($forward_all)
   validate_array($destinations)
   validate_bool($use_whitelist)
-  if !is_ip_address($pickle_receiver_interface) {
-    fail('$pickle_receiver_interface must be an IPv4 address')
+  if !is_numeric($replication_factor) {
+    fail('$replication_factor must be an integer')
   }
-  if !is_numeric($pickle_receiver_port) {
-    fail('$pickle_receiver_port must be an integer')
+  if !is_numeric($max_queue_size) {
+    fail('$max_queue_size must be an integer')
   }
-  if !is_ip_address($query_interface) {
-    fail("\$query_interface must be an IPv4 address - ${query_interface}")
+  validate_bool($use_flow_control)
+  if !is_numeric($max_datapoints_per_message) {
+    fail('$max_datapoints_per_message must be an integer')
   }
-  if !is_numeric($query_port) {
-    fail('$query_port must be an integer')
+  if !is_numeric($max_aggregation_intervals) {
+    fail('$max_aggregation_intervals must be an integer')
   }
-  if !is_numeric($cache_count) {
-    fail('$cache_count must be an integer')
+  if !is_numeric($write_back_frequency) {
+    fail('$write_back_frequency must be an integer')
+  }
+  validate_bool($use_whitelist)
+  
+  if !is_numeric($carbon_metric_interval) {
+    fail('$carbon_metric_interval must be an integer')
   }
 
   concat::fragment { "conf/carbon.conf-aggregator-${title}":
