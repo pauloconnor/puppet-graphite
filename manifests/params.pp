@@ -88,6 +88,7 @@ class graphite::params {
   $aggregator_pickle_receiver_interface  = '0.0.0.0'
   $aggregator_pickle_receiver_port       = 2024
   $aggregator_log_listener_connections   = true
+  $aggregator_enable_logrotation         = true
   $aggregator_forward_all                = true
   $aggregator_destinations               = [ '127.0.0.1:2004' ]
   $aggregator_replication_factor         = 1

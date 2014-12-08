@@ -6,6 +6,7 @@ define graphite::carbon::aggregator (
   $pickle_receiver_interface  =   $graphite::params::aggregator_pickle_receiver_interface,
   $pickle_receiver_port       =   $graphite::params::aggregator_pickle_receiver_port,
   $log_listener_connections   =   $graphite::params::aggregator_log_listener_connections,
+  $enable_logrotation         =   $graphite::params::aggregator_enable_logrotation,
   $forward_all                =   $graphite::params::aggregator_forward_all,
   $destinations               =   $graphite::params::aggregator_destinations,
   $replication_factor         =   $graphite::params::aggregator_replication_factor,
