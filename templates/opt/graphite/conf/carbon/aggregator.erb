@@ -1,8 +1,7 @@
 <%
+destinations = ''
 @destinations.each do | destination |
-  host, port = destination.to_s.split(':')
-  #port = port.to_i + port_addition
-  destinations = "#{destinations},#{host}:#{port}"
+  destinations = "#{destinations},#{destination}"
 end
 
 # chomp first character, which is a ,
