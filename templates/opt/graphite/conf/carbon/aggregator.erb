@@ -1,3 +1,14 @@
+<%
+@destinations.each do | destination |
+  host, port = destination.to_s.split(':')
+  #port = port.to_i + port_addition
+  destinations = "#{destinations},#{host}:#{port}"
+end
+
+# chomp first character, which is a ,
+destinations[0] = ''
+%>
+
 LINE_RECEIVER_INTERFACE    = <%= @line_receiver_interface %>
 LINE_RECEIVER_PORT         = <%= @line_receiver_port %>
 PICKLE_RECEIVER_INTERFACE  = <%= @pickle_receiver_interface %>
