@@ -55,7 +55,7 @@ define graphite::carbon::relay(
     fail('$pickle_receiver_port must be an integer')
   }
   validate_array($destinations)
-  validate_re($relay_method, '^(relay-rules|consistent-hashing)$')
+  validate_re($relay_method, '^(rules|consistent-hashing)$')
   if !is_numeric($replication_factor){
     fail('$replication_factor must be an integer')
   }
