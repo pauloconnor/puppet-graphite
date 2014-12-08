@@ -1,1 +1,17 @@
-aggregator.erb
+LINE_RECEIVER_INTERFACE    = <%= @line_receiver_interface %>
+LINE_RECEIVER_PORT         = <%= @line_receiver_port %>
+PICKLE_RECEIVER_INTERFACE  = <%= @pickle_receiver_interface %>
+PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port %>
+LOG_LISTENER_CONNECTIONS   = <%= @log_listener_connections %>
+FORWARD_ALL                = <%= @forward_all %>
+DESTINATIONS               = <%= @destinations %>
+REPLICATION_FACTOR         = <%= @replication_factor %>
+MAX_AGGREGATION_INTERVALS  = <%= @max_aggregation_intervals %>
+ENABLE_LOGROTATION         = <%= @enable_logrotation %>
+REPLICATION_FACTOR         = <%= @replication_factor %>
+MAX_QUEUE_SIZE             = <%= @max_queue_size %>
+USE_FLOW_CONTROL           = <%= @use_flow_control %>
+MAX_DATAPOINTS_PER_MESSAGE = <%= @max_datapoints_per_message %>
+MAX_AGGREGATION_INTERVALS  = <%= @max_intervals %>
+USE_WHITELIST              = <%= @use_whitelist %>
+CARBON_METRIC_INTERVAL     = <%= @carbon_metric_interval %>

@@ -12,19 +12,6 @@
 # Description: Enables Graphites carbon-aggregator data aggregation engine
 ### END INIT INFO
 
-<% scope.lookupvar('graphite::caches').each do | name, cache | 
-	cc = 0
-	start_collection = ""
-	stop_collection = ""
-	status_collection = ""
-	while cc < cache['count'].to_i
-		start_collection = "#{start_collection}\n\t\tpython /opt/graphite/bin/carbon-relay.py --instance=#{cc} start"
-		stop_collection = "#{stop_collection}\n\t\tpython /opt/graphite/bin/carbon-relay.py --instance=#{cc} stop"
-		status_collection = "#{status_collection}\n\t\tpython /opt/graphite/bin/carbon-relay.py --instance=#{cc} status"
-		cc += 1
-	end
-end %>
-
 case "$1" in
 	start)
 		python /opt/graphite/bin/carbon-aggregator.py start

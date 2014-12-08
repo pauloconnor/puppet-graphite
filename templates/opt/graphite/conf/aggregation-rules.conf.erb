@@ -38,7 +38,7 @@
 
 <%
   rules = scope.lookupvar('graphite::aggregator_rules')
-  rules.each do |name, rule| %>
+  rules.each do | rule | %>
 # <%= name %>
 <%= rule %>
 <% end %>
