@@ -1,20 +1,10 @@
-<%
-destinations = ''
-@destinations.each do | destination |
-  destinations = "#{destinations},#{destination}"
-end
-
-# chomp first character, which is a ,
-destinations[0] = ''
-%>
-
 LINE_RECEIVER_INTERFACE    = <%= @line_receiver_interface %>
 LINE_RECEIVER_PORT         = <%= @line_receiver_port %>
 PICKLE_RECEIVER_INTERFACE  = <%= @pickle_receiver_interface %>
 PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port %>
 LOG_LISTENER_CONNECTIONS   = <%= @log_listener_connections %>
 FORWARD_ALL                = <%= @forward_all %>
-DESTINATIONS               = <%= destinations %>
+DESTINATIONS               = <%= @destinations.join(',') %>
 REPLICATION_FACTOR         = <%= @replication_factor %>
 MAX_AGGREGATION_INTERVALS  = <%= @max_aggregation_intervals %>
 ENABLE_LOGROTATION         = <%= @enable_logrotation %>

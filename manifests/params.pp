@@ -83,9 +83,9 @@ class graphite::params {
   $relay_cache_count                     = 1
   $relay_carbon_metric_interval          = 60
 
-  $aggregator_line_receiver_interface    = '0.0.0.0'
+  $aggregator_line_receiver_interface    = $::ipaddress
   $aggregator_line_receiver_port         = 2023
-  $aggregator_pickle_receiver_interface  = '0.0.0.0'
+  $aggregator_pickle_receiver_interface  = $::ipaddress
   $aggregator_pickle_receiver_port       = 2024
   $aggregator_log_listener_connections   = true
   $aggregator_enable_logrotation         = true
