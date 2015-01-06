@@ -6,10 +6,10 @@ CONF_DIR                   = <%= scope.lookupvar('graphite::install_dir') %>/con
 LOG_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/log/
 PID_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/
 LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
-ENABLE_LOGROTATION         = True
 USER                       = <%= scope.lookupvar('graphite::user') %>
-LOG_LISTENER_CONNECTIONS   = True
-MAX_DATAPOINTS_PER_MESSAGE = 500
+LOG_LISTENER_CONNECTIONS   = <%= scope.lookupvar('graphite::params::relay_log_listener_connections') %>
+MAX_DATAPOINTS_PER_MESSAGE = <%= scope.lookupvar('graphite::params::relay_max_datapoints_per_message') %>
+ENABLE_LOGROTATION         = <%= scope.lookupvar('graphite::params::relay_enable_logrotation') %>
 MAX_QUEUE_SIZE             = <%= scope.lookupvar('graphite::params::relay_max_queue_size') %>
 USE_FLOW_CONTROL           = <%= scope.lookupvar('graphite::params::relay_use_flow_control') %>
 USE_WHITELIST              = <%= scope.lookupvar('graphite::params::relay_use_whitelist') %>
