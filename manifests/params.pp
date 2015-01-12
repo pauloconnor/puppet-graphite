@@ -73,8 +73,8 @@ class graphite::params {
   $relay_pickle_receiver_interface       = $::ipaddress
   $relay_pickle_receiver_port            = 2004
   $relay_destinations                    = []
-  $relay_enable_logrotation              = False
-  $relay_log_listener_connections        = True
+  $relay_enable_logrotation              = false
+  $relay_log_listener_connections        = true
   $relay_relay_method                    = 'consistent-hashing'
   $relay_replication_factor              = 1
   $relay_max_datapoints_per_message      = 500
