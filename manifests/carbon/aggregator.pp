@@ -9,6 +9,7 @@ define graphite::carbon::aggregator (
   $enable_logrotation         =   $graphite::params::aggregator_enable_logrotation,
   $forward_all                =   $graphite::params::aggregator_forward_all,
   $destinations               =   $graphite::params::aggregator_destinations,
+  $relay_method               =   $graphite::params::aggregator_relay_method,
   $replication_factor         =   $graphite::params::aggregator_replication_factor,
   $max_queue_size             =   $graphite::params::aggregator_max_queue_size,
   $use_flow_control           =   $graphite::params::aggregator_use_flow_control,
@@ -42,6 +43,7 @@ define graphite::carbon::aggregator (
   validate_bool($log_listener_connections)
   validate_bool($forward_all)
   validate_array($destinations)
+  validate_re($relay_method, '^(rules|consistent-hashing)$')
   validate_bool($use_whitelist)
   if !is_numeric($replication_factor) {
     fail('$replication_factor must be an integer')

@@ -93,6 +93,7 @@ class graphite::params {
   $aggregator_enable_logrotation         = true
   $aggregator_forward_all                = true
   $aggregator_destinations               = [ '127.0.0.1:2004' ]
+  $aggregator_relay_method               = 'consistent-hashing'
   $aggregator_replication_factor         = 1
   $aggregator_max_queue_size             = 10000
   $aggregator_use_flow_control           = true
