@@ -150,6 +150,11 @@ class graphite::config inherits graphite::params {
       content => template('graphite/opt/graphite/conf/relay-rules.conf.erb'),
       notify  => $notify_services,
       require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
+    "${graphite::install_dir}/conf/blacklist.conf":
+      mode    => '0644',
+      content => template('graphite/opt/graphite/conf/blacklist.conf.erb'),
+      notify  => $notify_services,
+      require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
   }
 
   concat { "${graphite::install_dir}/conf/carbon.conf":
