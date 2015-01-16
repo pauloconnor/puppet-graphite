@@ -153,7 +153,6 @@ class graphite::config inherits graphite::params {
     "${graphite::install_dir}/conf/blacklist.conf":
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/blacklist.conf.erb'),
-      notify  => $notify_services,
       require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
   }
 
