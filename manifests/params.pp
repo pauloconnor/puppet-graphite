@@ -139,7 +139,7 @@ class graphite::params {
     }
   }
 
-  $blacklist = {}
+  $blacklist = []
 
   $storage_aggregation_rules  = {
     '00_min' => {
