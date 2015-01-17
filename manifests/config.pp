@@ -155,10 +155,6 @@ class graphite::config inherits graphite::params {
 
   if $graphite::enable_carbon_cache {
     file {
-      "${graphite::install_dir}/conf/storage-schemas.conf":
-        mode    => '0644',
-        content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb'),
-        require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
       "${graphite::install_dir}/conf/storage-aggregation.conf":
         mode    => '0644',
         content => template('graphite/opt/graphite/conf/storage-aggregation.conf.erb'),
@@ -168,6 +164,10 @@ class graphite::config inherits graphite::params {
   }
 
   file {
+    "${graphite::install_dir}/conf/storage-schemas.conf":
+      mode    => '0644',
+      content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb'),
+      require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
     "${graphite::install_dir}/conf/relay-rules.conf":
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/relay-rules.conf.erb'),
