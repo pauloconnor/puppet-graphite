@@ -35,6 +35,7 @@ class graphite (
   $storage_schemas                = $graphite::params::storage_schemas,
   $storage_aggregation_rules      = $graphite::params::storage_aggregation_rules,
   $aggregator_rules               = $graphite::params::aggregator_rules,
+  $blacklist                      = $graphite::params::blacklist,
   $relay_rules                    = $graphite::params::relay_rules,
   $relays                         = $graphite::params::relays,
   $caches                         = $graphite::params::caches,

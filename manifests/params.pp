@@ -141,6 +141,8 @@ class graphite::params {
     }
   }
 
+  $blacklist = []
+
   $storage_aggregation_rules  = {
     '00_min' => {
       pattern => '\.min$',
