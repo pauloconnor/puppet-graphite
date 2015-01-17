@@ -208,14 +208,16 @@ class graphite::config inherits graphite::params {
     require => Concat["${graphite::install_dir}/conf/carbon.conf"];
   }
 
-  # startup carbon engine
+  if $graphite::enable_carbon_cache {
+    # startup carbon engine
 
-  service { 'carbon-cache':
-    ensure     => running,
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
-    require    => File['/etc/init.d/carbon-cache'];
+    service { 'carbon-cache':
+      ensure     => running,
+      enable     => true,
+      hasstatus  => true,
+      hasrestart => true,
+      require    => File['/etc/init.d/carbon-cache'];
+    }
   }
 
   if $graphite::enable_carbon_relay {
