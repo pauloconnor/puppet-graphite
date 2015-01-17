@@ -135,16 +135,21 @@ class graphite::config inherits graphite::params {
     }
   }
 
+  if $graphite::enable_carbon_cache {
+    file {
+      "${graphite::install_dir}/conf/storage-schemas.conf":
+        mode    => '0644',
+        content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb'),
+        require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
+      "${graphite::install_dir}/conf/storage-aggregation.conf":
+        mode    => '0644',
+        content => template('graphite/opt/graphite/conf/storage-aggregation.conf.erb'),
+        notify  => $notify_services,
+        require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
+    }
+  }
+  
   file {
-    "${graphite::install_dir}/conf/storage-schemas.conf":
-      mode    => '0644',
-      content => template('graphite/opt/graphite/conf/storage-schemas.conf.erb'),
-      require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
-    "${graphite::install_dir}/conf/storage-aggregation.conf":
-      mode    => '0644',
-      content => template('graphite/opt/graphite/conf/storage-aggregation.conf.erb'),
-      notify  => $notify_services,
-      require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
     "${graphite::install_dir}/conf/relay-rules.conf":
       mode    => '0644',
       content => template('graphite/opt/graphite/conf/relay-rules.conf.erb'),
@@ -204,15 +209,14 @@ class graphite::config inherits graphite::params {
     rotate_every  => 'day',
   }
 
-  
-  file { '/etc/init.d/carbon-cache':
-    ensure  => file,
-    mode    => '0750',
-    content => template('graphite/etc/init.d/carbon-cache.erb'),
-    require => Concat["${graphite::install_dir}/conf/carbon.conf"];
-  }
-
   if $graphite::enable_carbon_cache {
+    file { '/etc/init.d/carbon-cache':
+      ensure  => file,
+      mode    => '0750',
+      content => template('graphite/etc/init.d/carbon-cache.erb'),
+      require => Concat["${graphite::install_dir}/conf/carbon.conf"];
+    }
+
     # startup carbon engine
 
     service { 'carbon-cache':
