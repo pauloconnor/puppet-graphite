@@ -103,27 +103,45 @@ class graphite::config inherits graphite::params {
 
 
   # configure carbon engines
-  if $graphite::enable_carbon_relay and $graphite::enable_carbon_aggregator {
+  if $graphite::enable_carbon_relay and $graphite::enable_carbon_aggregator and $graphite::enable_carbon_cache {
     $notify_services = [
       Service['carbon-aggregator'],
       Service['carbon-relay'],
       Service['carbon-cache']
     ]
   }
-  elsif $graphite::enable_carbon_relay {
+  elsif $graphite::enable_carbon_relay and $graphite::enable_carbon_cache {
     $notify_services = [
       Service['carbon-relay'],
       Service['carbon-cache']
+    ]
+  }
+  elsif $graphite::enable_carbon_aggregator and $graphite::enable_carbon_cache {
+    $notify_services = [
+      Service['carbon-aggregator'],
+      Service['carbon-cache']
+    ]
+  }
+  elsif $graphite::enable_carbon_relay and $graphite::enable_carbon_aggregator {
+    $notify_services = [
+      Service['carbon-relay'],
+      Service['carbon-aggregator']
     ]
   }
   elsif $graphite::enable_carbon_aggregator {
     $notify_services = [
       Service['carbon-aggregator'],
-      Service['carbon-cache']
     ]
   }
-  else {
-    $notify_services = [ Service['carbon-cache'] ]
+  elsif $graphite::enable_carbon_relay {
+    $notify_services = [
+      Service['carbon-relay'],
+    ]
+  }
+  elsif $graphite::enable_carbon_cache {
+    $notify_services = [
+      Service['carbon-cache'],
+    ]
   }
 
   if $graphite::enable_carbon_aggregator {
@@ -148,7 +166,7 @@ class graphite::config inherits graphite::params {
         require => File["${graphite::install_dir}/webapp/graphite/local_settings.py"];
     }
   }
-  
+
   file {
     "${graphite::install_dir}/conf/relay-rules.conf":
       mode    => '0644',
