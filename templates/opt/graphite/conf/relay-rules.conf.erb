@@ -7,5 +7,5 @@
 <%- if rule['default'] then %>default = true<% end %>
 <%- if rule['continue'] then %>continue = true<% end %>
 <%- if rule['pattern'] then %>pattern = <%= rule['pattern'] %><% end %>
-destinations = <%= rule['destinations'] %>
+destinations = <%= rule['destinations'].join(', ') %>
 <% end %>
