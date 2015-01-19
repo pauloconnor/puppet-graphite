@@ -6,3 +6,4 @@ CONF_DIR                   = <%= scope.lookupvar('graphite::install_dir') %>/con
 LOG_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/log/
 PID_DIR                    = <%= scope.lookupvar('graphite::storage_dir') %>/
 LOCAL_DATA_DIR             = <%= scope.lookupvar('graphite::storage_dir') %>/whisper/
+USER                       = <%= scope.lookupvar('graphite::user') %>
