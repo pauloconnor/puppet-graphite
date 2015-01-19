@@ -18,7 +18,8 @@ define graphite::carbon::aggregator (
   $write_back_frequency       =   $graphite::params::aggregator_write_back_frequency,
   $use_whitelist              =   $graphite::params::aggregator_use_whitelist,
   $carbon_metric_prefix       =   $graphite::params::aggregator_carbon_metric_prefix,
-  $carbon_metric_interval     =   $graphite::params::aggregator_carbon_metric_interval
+  $carbon_metric_interval     =   $graphite::params::aggregator_carbon_metric_interval,
+  $aggregator_count           =   $grpahite::params::aggregator_count
   ) {
 
   # 'carbon-class-mem' => 'carbon.all.<class>.memUsage (60) = sum carbon.<class>.*.memUsage',

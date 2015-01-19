@@ -54,6 +54,7 @@ class graphite (
   $relay_destinations             = ['127.0.0.1:2003'],
   $aggregator_destinations        = ['127.0.0.1:2005'],
   $cache_count                    = 1,
+  $aggregator_count               = 1,
   $query_port                     = 7002,
   $web_server_package_require     = $graphite::params::web_server_package_require,
   $use_ldap                       = $graphite::params::use_ldap,

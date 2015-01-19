@@ -103,6 +103,7 @@ class graphite::params {
   $aggregator_use_whitelist              = false
   $aggregator_carbon_metric_prefix       = 'carbon'
   $aggregator_carbon_metric_interval     = 60
+  $aggregator_count                      = 1
 
   $django_1_4_or_less             = false
   $django_db_engine               = 'django.db.backends.sqlite3'

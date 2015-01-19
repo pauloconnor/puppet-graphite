@@ -9,21 +9,46 @@
 # Default-Start:  2 3 4 5
 # Default-Stop:   0 1 6
 # Short-Description: Start/Stop carbon-aggregator
-# Description: Enables Graphites carbon-aggregator data aggregation engine
+# Description: Enables Graphites carbon-aggregator data collecting engine
 ### END INIT INFO
+
+<% 
+	aggregator_list=""
+	cc = 0
+	while cc < scope.lookupvar('graphite::aggregator_count').to_i
+		aggregator_list = "#{aggregator_list} #{cc}"
+		cc += 1
+	end
+	aggregator_list[0]=""
+%>
 
 case "$1" in
 	start)
-		python /opt/graphite/bin/carbon-aggregator.py start
+		for aggregator in <%= aggregator_list %>; 
+		do
+			python /opt/graphite/bin/carbon-aggregator.py --instance=$aggregator start
+		done
 		;;
 	stop)
-		python /opt/graphite/bin/carbon-aggregator.py stop
+		for aggregator in <%= aggregator_list %>; 
+		do
+			python /opt/graphite/bin/carbon-aggregator.py --instance=$aggregator stop
+		done
 		;;
 	status)
-		python /opt/graphite/bin/carbon-aggregator.py status
+		for aggregator in <%= aggregator_list %>; 
+		do
+			python /opt/graphite/bin/carbon-aggregator.py --instance=$aggregator status
+		done
 		;;
 	restart)
-		$0 stop ; sleep 3 ; $0 start
+		for aggregator in <%= aggregator_list %>; 
+		do
+			python /opt/graphite/bin/carbon-aggregator.py --instance=$aggregator stop
+			sleep 3
+			python /opt/graphite/bin/carbon-aggregator.py --instance=$aggregator  start
+		done
+		
 		RC=$?
 		exit $RC
 		;;
