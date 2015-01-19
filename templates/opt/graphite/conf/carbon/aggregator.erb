@@ -10,7 +10,7 @@ PICKLE_RECEIVER_PORT       = <%= @pickle_receiver_port.to_i  + (ac.to_i * 10) %>
 LOG_LISTENER_CONNECTIONS   = <%= @log_listener_connections %>
 FORWARD_ALL                = <%= @forward_all %>
 DESTINATIONS               = <%= @destinations.join(',') %>
-REPLICATION_FACTOR         = <%= size(@destinations) %>
+REPLICATION_FACTOR         = <%= @replication_factor %>
 MAX_AGGREGATION_INTERVALS  = <%= @max_aggregation_intervals %>
 ENABLE_LOGROTATION         = <%= @enable_logrotation %>
 REPLICATION_FACTOR         = <%= @replication_factor %>
