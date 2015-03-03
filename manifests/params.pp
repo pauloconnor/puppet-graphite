@@ -41,7 +41,7 @@ class graphite::params {
   $amqp_metric_name_in_body         = False
 
   $cache_user                     = 'www-data'
-  $cache_enable_logrotation       = False
+  $cache_enable_logrotation       = true
   $cache_log_listener_connections = True
   $cache_use_flow_control         = True
   $cache_log_updates              = False
@@ -73,7 +73,7 @@ class graphite::params {
   $relay_pickle_receiver_interface       = $::ipaddress
   $relay_pickle_receiver_port            = 2004
   $relay_destinations                    = []
-  $relay_enable_logrotation              = false
+  $relay_enable_logrotation              = true
   $relay_log_listener_connections        = true
   $relay_relay_method                    = 'consistent-hashing'
   $relay_replication_factor              = 1

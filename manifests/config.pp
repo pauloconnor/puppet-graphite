@@ -215,18 +215,6 @@ class graphite::config inherits graphite::params {
     }
   }
 
-  logrotate::rule { 'carbon_logs':
-    path         => "${graphite::storage_dir}/log/carbon-*",
-    rotate       => 5,
-    rotate_every => 'day',
-  }
-
-  logrotate::rule { 'webapp_logs':
-    path          => "${graphite::storage_dir}/log/webapp",
-    rotate        => 5,
-    rotate_every  => 'day',
-  }
-
   if $graphite::enable_carbon_cache {
     file { '/etc/init.d/carbon-cache':
       ensure  => file,
